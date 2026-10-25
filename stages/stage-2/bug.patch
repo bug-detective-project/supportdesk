@@ -1,0 +1,61 @@
+diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
+index ce096f5..7d714a7 100644
+--- a/client/src/pages/TicketDetails.tsx
++++ b/client/src/pages/TicketDetails.tsx
+@@ -74,7 +74,6 @@ export function TicketDetails() {
+     return () => controller.abort();
+   }, [search]);
+ 
+-  const activeEmployees = employees.filter((employee) => employee.active);
+   const position = resultIds.indexOf(Number(id));
+   const previousId = position > 0 ? resultIds[position - 1] : undefined;
+   const nextId = position >= 0 && position < resultIds.length - 1 ? resultIds[position + 1] : undefined;
+@@ -115,29 +114,19 @@ export function TicketDetails() {
+     void saveField({ priorityLevel: priority }, { priority }, 'priority');
+   }
+ 
+-  async function handleAssigneeChange(event: ChangeEvent<HTMLSelectElement>) {
++  function handleAssigneeChange(event: ChangeEvent<HTMLSelectElement>) {
+     if (!ticket) {
+       return;
+     }
+-    const ticketId = ticket.id;
+-    setFeedback(null);
+-    try {
+-      const response = await updateTicket(ticketId, { assignee: event.target.value });
+-      if (!response.ok) {
+-        const reason = await readErrorMessage(response);
+-        setFeedback({ type: 'error', message: reason ?? 'Could not update the assignee.' });
+-        return;
+-      }
+-      const updated: Ticket = await response.json();
+-      setTicket((current) =>
+-        current?.id === ticketId
+-          ? { ...current, assigneeId: updated.assigneeId, assignee: updated.assignee }
+-          : current,
+-      );
+-      setFeedback({ type: 'success', message: 'The assignee was updated.' });
+-    } catch {
+-      setFeedback({ type: 'error', message: 'Could not update the assignee. Check your connection.' });
+-    }
++    const assignee = event.target.value;
++    const assigneeId = assignee === '' ? null : Number(assignee);
++    updateTicket(ticket.id, { assignee });
++    setTicket({
++      ...ticket,
++      assigneeId,
++      assignee: employees.find((employee) => employee.id === assigneeId) ?? null,
++    });
++    setFeedback({ type: 'success', message: 'The assignee was updated.' });
+   }
+ 
+   const backLink = (
+@@ -253,7 +242,7 @@ export function TicketDetails() {
+                 data-testid="assignee-select"
+               >
+                 <option value="">Unassigned</option>
+-                {activeEmployees.map((employee) => (
++                {employees.map((employee) => (
+                   <option key={employee.id} value={employee.id}>
+                     {employee.name}
+                   </option>

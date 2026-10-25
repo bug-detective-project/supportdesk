@@ -1,0 +1,39 @@
+diff --git a/client/src/api/tickets.ts b/client/src/api/tickets.ts
+index be12f72..bc318f3 100644
+--- a/client/src/api/tickets.ts
++++ b/client/src/api/tickets.ts
+@@ -52,7 +52,7 @@ export async function fetchTicket(id: number, signal?: AbortSignal): Promise<Tic
+ export function toTicketPatch(values: TicketFormValues) {
+   return {
+     ...(values.status !== undefined && { status: values.status }),
+-    ...(values.priorityLevel !== undefined && { priorityLevel: values.priorityLevel }),
++    ...(values.priorityLevel !== undefined && { priority: values.priorityLevel }),
+     ...(values.assignee !== undefined && {
+       assigneeId: values.assignee === '' ? null : Number(values.assignee),
+     }),
+diff --git a/client/src/pages/TicketDetails.priority.test.tsx b/client/src/pages/TicketDetails.priority.test.tsx
+new file mode 100644
+index 0000000..5fd2fa3
+--- /dev/null
++++ b/client/src/pages/TicketDetails.priority.test.tsx
+@@ -0,0 +1,20 @@
++import { screen } from '@testing-library/react';
++import userEvent from '@testing-library/user-event';
++import { describe, expect, it } from 'vitest';
++import { mockApi, requestsOf } from '../test/mockApi.ts';
++import { renderApp } from '../test/renderApp.tsx';
++
++describe('TicketDetails priority', () => {
++  it('sends the new priority to the API', async () => {
++    const fetchMock = mockApi();
++    const user = userEvent.setup();
++    renderApp('/tickets/2');
++    await screen.findByTestId('ticket-details');
++
++    await user.selectOptions(screen.getByTestId('priority-select'), 'High');
++
++    expect(await screen.findByTestId('feedback-success')).toBeInTheDocument();
++    const patch = requestsOf(fetchMock).find((request) => request.method === 'PATCH');
++    expect(patch).toEqual(expect.objectContaining({ path: '/api/tickets/2', body: { priority: 'High' } }));
++  });
++});
