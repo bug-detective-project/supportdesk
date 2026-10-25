@@ -1,0 +1,28 @@
+{
+  "name": "supportdesk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">=26.12.1"
+  },
+  "scripts": {
+    "dev": "concurrently --names server,client --prefix-colors blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build --workspaces",
+    "test": "vitest run",
+    "db:reset": "npm run db:reset -w server"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "concurrently": "10.0.6",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  },
+  "allowScripts": {
+    "better-sqlite3@13.0.3": true
+  }
+}
