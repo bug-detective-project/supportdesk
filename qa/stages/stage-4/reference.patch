@@ -1,0 +1,72 @@
+diff --git a/client/src/api/tickets.ts b/client/src/api/tickets.ts
+index bec2ef0..bc318f3 100644
+--- a/client/src/api/tickets.ts
++++ b/client/src/api/tickets.ts
+@@ -13,7 +13,7 @@ export interface Ticket {
+   status: TicketStatus;
+   priority: TicketPriority;
+   assigneeId: number | null;
+-  assignee: Employee;
++  assignee: Employee | null;
+   createdAt: string;
+   updatedAt: string;
+ }
+diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
+index 0a21047..2890b8e 100644
+--- a/client/src/pages/TicketDetails.tsx
++++ b/client/src/pages/TicketDetails.tsx
+@@ -242,9 +242,15 @@ export function TicketDetails() {
+               <label htmlFor="assignee">Assignee</label>
+             </dt>
+             <dd>
+-              <a className="assignee-name" href={`mailto:${ticket.assignee.email}`} data-testid="assignee-name">
+-                {ticket.assignee.name}
+-              </a>
++              {ticket.assignee ? (
++                <a className="assignee-name" href={`mailto:${ticket.assignee.email}`} data-testid="assignee-name">
++                  {ticket.assignee.name}
++                </a>
++              ) : (
++                <span className="assignee-name" data-testid="assignee-name">
++                  Unassigned
++                </span>
++              )}
+               <select
+                 id="assignee"
+                 value={ticket.assigneeId ?? ''}
+diff --git a/client/src/pages/TicketDetails.unassigned.test.tsx b/client/src/pages/TicketDetails.unassigned.test.tsx
+new file mode 100644
+index 0000000..9c1966e
+--- /dev/null
++++ b/client/src/pages/TicketDetails.unassigned.test.tsx
+@@ -0,0 +1,30 @@
++import { screen, within } from '@testing-library/react';
++import userEvent from '@testing-library/user-event';
++import { describe, expect, it } from 'vitest';
++import { mockApi } from '../test/mockApi.ts';
++import { renderApp } from '../test/renderApp.tsx';
++
++describe('TicketDetails without an assignee', () => {
++  it('renders an unassigned ticket', async () => {
++    mockApi();
++    renderApp('/tickets/4');
++
++    expect(await screen.findByTestId('ticket-details')).toBeInTheDocument();
++    expect(screen.getByTestId('assignee-name')).toHaveTextContent('Unassigned');
++    expect(screen.getByTestId('assignee-select')).toHaveValue('');
++  });
++
++  it('keeps the details visible after unassigning a ticket', async () => {
++    mockApi();
++    const user = userEvent.setup();
++    renderApp('/tickets/3');
++    const select = await screen.findByTestId('assignee-select');
++    await within(select).findByRole('option', { name: 'Maya Chen' });
++
++    await user.selectOptions(select, '');
++
++    expect(await screen.findByTestId('feedback-success')).toBeInTheDocument();
++    expect(screen.getByTestId('ticket-details')).toBeInTheDocument();
++    expect(screen.getByTestId('assignee-name')).toHaveTextContent('Unassigned');
++  });
++});

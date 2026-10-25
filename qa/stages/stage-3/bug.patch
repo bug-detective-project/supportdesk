@@ -1,0 +1,13 @@
+diff --git a/client/src/api/tickets.ts b/client/src/api/tickets.ts
+index bc318f3..be12f72 100644
+--- a/client/src/api/tickets.ts
++++ b/client/src/api/tickets.ts
+@@ -52,7 +52,7 @@ export async function fetchTicket(id: number, signal?: AbortSignal): Promise<Tic
+ export function toTicketPatch(values: TicketFormValues) {
+   return {
+     ...(values.status !== undefined && { status: values.status }),
+-    ...(values.priorityLevel !== undefined && { priority: values.priorityLevel }),
++    ...(values.priorityLevel !== undefined && { priorityLevel: values.priorityLevel }),
+     ...(values.assignee !== undefined && {
+       assigneeId: values.assignee === '' ? null : Number(values.assignee),
+     }),

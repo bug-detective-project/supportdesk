@@ -1,0 +1,35 @@
+diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
+index ce096f5..3a9a32d 100644
+--- a/client/src/pages/TicketDetails.tsx
++++ b/client/src/pages/TicketDetails.tsx
+@@ -34,27 +34,12 @@ export function TicketDetails() {
+   const [feedback, setFeedback] = useState<Feedback | null>(null);
+ 
+   useEffect(() => {
+-    let ignore = false;
+-    setFeedback(null);
+-    setLoadError(null);
+-
+     fetchTicket(Number(id))
+-      .then((loaded) => {
+-        if (!ignore) {
+-          setTicket(loaded);
+-        }
+-      })
++      .then(setTicket)
+       .catch((error: unknown) => {
+-        if (!ignore) {
+-          setTicket(null);
+-          setLoadError(error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.');
+-        }
++        setLoadError(error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.');
+       });
+-
+-    return () => {
+-      ignore = true;
+-    };
+-  }, [id]);
++  }, []);
+ 
+   useEffect(() => {
+     fetchEmployees()

@@ -1,0 +1,105 @@
+diff --git a/client/src/pages/TicketDetails.assignment.test.tsx b/client/src/pages/TicketDetails.assignment.test.tsx
+new file mode 100644
+index 0000000..cbed6a7
+--- /dev/null
++++ b/client/src/pages/TicketDetails.assignment.test.tsx
+@@ -0,0 +1,38 @@
++import { screen, within } from '@testing-library/react';
++import userEvent from '@testing-library/user-event';
++import { describe, expect, it } from 'vitest';
++import { mockApi } from '../test/mockApi.ts';
++import { renderApp } from '../test/renderApp.tsx';
++
++describe('TicketDetails assignment', () => {
++  it('only offers active employees', async () => {
++    mockApi();
++    renderApp('/tickets/3');
++
++    const select = await screen.findByTestId('assignee-select');
++    await within(select).findByRole('option', { name: 'Maya Chen' });
++
++    const options = within(select).getAllByRole('option').map((option) => option.textContent);
++    expect(options).toEqual(['Unassigned', 'Maya Chen', 'Daniel Okafor']);
++  });
++
++  it('shows an error and keeps the previous assignee when the assignment fails', async () => {
++    mockApi({
++      respond: (request) =>
++        request.method === 'PATCH'
++          ? new Response(JSON.stringify({ error: 'Maya Chen cannot be assigned' }), { status: 422 })
++          : undefined,
++    });
++    const user = userEvent.setup();
++    renderApp('/tickets/3');
++    const select = await screen.findByTestId('assignee-select');
++    await within(select).findByRole('option', { name: 'Maya Chen' });
++
++    await user.selectOptions(select, '1');
++
++    expect(await screen.findByTestId('feedback-error')).toBeInTheDocument();
++    expect(screen.queryByTestId('feedback-success')).not.toBeInTheDocument();
++    expect(screen.getByTestId('assignee-select')).toHaveValue('2');
++    expect(screen.getByTestId('assignee-name')).toHaveTextContent('Daniel Okafor');
++  });
++});
+diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
+index 7d714a7..ce096f5 100644
+--- a/client/src/pages/TicketDetails.tsx
++++ b/client/src/pages/TicketDetails.tsx
+@@ -74,6 +74,7 @@ export function TicketDetails() {
+     return () => controller.abort();
+   }, [search]);
+ 
++  const activeEmployees = employees.filter((employee) => employee.active);
+   const position = resultIds.indexOf(Number(id));
+   const previousId = position > 0 ? resultIds[position - 1] : undefined;
+   const nextId = position >= 0 && position < resultIds.length - 1 ? resultIds[position + 1] : undefined;
+@@ -114,19 +115,29 @@ export function TicketDetails() {
+     void saveField({ priorityLevel: priority }, { priority }, 'priority');
+   }
+ 
+-  function handleAssigneeChange(event: ChangeEvent<HTMLSelectElement>) {
++  async function handleAssigneeChange(event: ChangeEvent<HTMLSelectElement>) {
+     if (!ticket) {
+       return;
+     }
+-    const assignee = event.target.value;
+-    const assigneeId = assignee === '' ? null : Number(assignee);
+-    updateTicket(ticket.id, { assignee });
+-    setTicket({
+-      ...ticket,
+-      assigneeId,
+-      assignee: employees.find((employee) => employee.id === assigneeId) ?? null,
+-    });
+-    setFeedback({ type: 'success', message: 'The assignee was updated.' });
++    const ticketId = ticket.id;
++    setFeedback(null);
++    try {
++      const response = await updateTicket(ticketId, { assignee: event.target.value });
++      if (!response.ok) {
++        const reason = await readErrorMessage(response);
++        setFeedback({ type: 'error', message: reason ?? 'Could not update the assignee.' });
++        return;
++      }
++      const updated: Ticket = await response.json();
++      setTicket((current) =>
++        current?.id === ticketId
++          ? { ...current, assigneeId: updated.assigneeId, assignee: updated.assignee }
++          : current,
++      );
++      setFeedback({ type: 'success', message: 'The assignee was updated.' });
++    } catch {
++      setFeedback({ type: 'error', message: 'Could not update the assignee. Check your connection.' });
++    }
+   }
+ 
+   const backLink = (
+@@ -242,7 +253,7 @@ export function TicketDetails() {
+                 data-testid="assignee-select"
+               >
+                 <option value="">Unassigned</option>
+-                {employees.map((employee) => (
++                {activeEmployees.map((employee) => (
+                   <option key={employee.id} value={employee.id}>
+                     {employee.name}
+                   </option>
