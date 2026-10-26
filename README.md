@@ -17,7 +17,12 @@ qa/
     gate1/               the stage's project tests and test support files (mirrors repo paths)
     gate2/               hidden Playwright/API validation for the ticket
     reference.patch      stage N -> fixed, including the bug's regression test
+    hints.en.json, hints.pt.json         3 progressive senior-dev hints ({ "hints": [string, string, string] })
+    solution.en.md, solution.pt.md       the final solution, explaining reference.patch step by step
+    review.en.md, review.pt.md           the senior-dev code review shown after QA passes
 ```
+
+The desktop app's stage package is this folder without `bug.patch` (see `desktop/tools/build-stage-packages.ts`).
 
 ## Setup
 
@@ -31,12 +36,23 @@ npm install   # also installs Playwright's Chromium
 ```sh
 cd qa
 npm run qa -- --ticket <1-4> --workspace <path> [--lang en|pt] [--json out.json] [--timeout 180] [--keep] [--verbose]
+              [--package <dir>] [--deps-cache <dir>] [--deps-only]
 ```
 
 1. **Isolate:** copies the workspace to a temp directory (without `node_modules`, `.git`, `dist`, `qa/` and `*.db` files) and runs `npm ci` there. The player's files, database and processes are never touched.
 2. **Gate 1 (regression):** deletes every `*.test.*` / `*.spec.*` file in the copy, copies in `stages/stage-N/gate1/`, and runs Vitest.
 3. **Gate 2 (ticket validation):** builds the client with `vite build`, creates a fresh database with `npm run db:reset`, starts the server and `vite preview` on free ports, and runs `stages/stage-N/gate2/` with Playwright. All processes are stopped afterward, even on failure.
 4. **Timeout:** the whole run is limited to `--timeout` seconds (default 180). On timeout, everything is killed and unfinished tests are listed.
+
+### Options for the desktop app and containers
+
+| Option | What it does |
+| --- | --- |
+| `--package <dir>` | Reads the stage package (`gate1/`, `gate2/`) from any directory, for example a downloaded release asset mounted read-only. Default: `stages/stage-N/` in this folder. The workspace and the package are only read, never written. |
+| `--deps-cache <dir>` | Reuses installed dependencies keyed by the SHA-256 of `package-lock.json`, the Node version and the platform, instead of running `npm ci`. After a fresh `npm ci`, the result is stored as `<key>.tar`. Lets QA run offline once the cache is warm. |
+| `--deps-only` | With `--deps-cache`: copies the workspace, installs its dependencies into the cache and exits (exit code 0 on success). Used to download dependencies once, with the player's consent. |
+
+Temporary Gate 2 folders (`.package-*/`) are created here while a run with `--package` is active and removed afterward.
 
 The exit code is 0 only when both gates pass. `--json` writes `{ ticket, gate, status, message, tests: [{ name, status, error }], durationMs }`, where `status` is `passed`, `failed` or `timeout`, and `gate` is the gate that failed or timed out (2 when passed). `--keep` keeps the temp directory with logs for debugging.
 

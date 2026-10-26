@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "There are two symptoms, and QA checks both. Reproduce the failed assignment with DevTools open on the Network tab: what status code does the PATCH request return, and what does its response body say? Then compare that with what the screen shows.",
+    "The server already refuses the departed employee. The problem is on the client side, in two places: the list of options offered in the assignee dropdown, and the way the assignment change handler treats the request it sends.",
+    "Open client/src/pages/TicketDetails.tsx and read handleAssigneeChange. Is the result of updateTicket awaited and checked before the success message and the new assignee are shown? Compare it with saveField, which the status and priority controls use. For the dropdown, look at the active field that /api/employees returns."
+  ]
+}
