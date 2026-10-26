@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Start by reproducing it with the browser's DevTools open. Watch the Network tab while you click Next: does the app ask the API for the new ticket at all? Compare what the URL says with what was requested.",
+    "The URL changes, but the details page is the same React component before and after the click: React Router keeps it mounted and only the route parameter changes. Look at how and when the details screen loads its ticket.",
+    "Open client/src/pages/TicketDetails.tsx and look at the useEffect that calls fetchTicket. Think about its dependency array: which values does the effect read, and which of them does React watch? Also think about what happens when an older request finishes after a newer one."
+  ]
+}

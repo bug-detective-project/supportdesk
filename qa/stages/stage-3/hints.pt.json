@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "A tela diz que funcionou, então não confie na tela: siga os dados. Abra o DevTools na aba Network, mude a prioridade e inspecione a requisição PATCH: olhe o payload enviado e a resposta. Depois compare com uma mudança de status, que é salva.",
+    "Todas as camadas parecem ter sucesso: a interface mostra o novo valor e o servidor responde 200. Quando isso acontece, confira se os dois lados concordam sobre o formato dos dados. Compare os nomes dos campos que o client envia com os nomes que o servidor lê.",
+    "Leia toTicketPatch em client/src/api/tickets.ts e parseChanges em server/src/routes/tickets.ts. O formulário usa um nome próprio para o valor, o contrato da API no README usa outro, e o servidor ignora em silêncio os campos desconhecidos."
+  ]
+}
