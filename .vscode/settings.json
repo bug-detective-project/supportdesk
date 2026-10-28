@@ -1,0 +1,12 @@
+{
+  // Every file but TS/JS is formatted by Prettier on save (.prettierrc.json).
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  // TS/JS files are formatted and fixed by ESLint on save (eslint.config.js).
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  }
+}

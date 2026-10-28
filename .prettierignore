@@ -1,0 +1,12 @@
+# TS/JS files are formatted by ESLint (eslint.config.js); Prettier formats everything else.
+**/*.ts
+**/*.tsx
+**/*.js
+**/*.jsx
+**/*.mjs
+**/*.cjs
+package-lock.json
+node_modules/
+dist/
+server/data/
+qa/
