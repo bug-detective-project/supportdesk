@@ -54,7 +54,7 @@ export const messages: Record<Language, Messages> = {
     jsonWritten: (path) => `JSON result written to ${path}`,
     logsKept: (path) => `Logs and the workspace copy were kept in ${path}`,
     usage:
-      'Usage: npm run qa -- --ticket <1-4> --workspace <path> [--lang en|pt] [--json out.json] [--timeout seconds] [--keep] [--package dir] [--deps-cache dir] [--deps-only]',
+      'Usage: npm run qa -- --ticket <n> --package <dir> --workspace <path> [--lang en|pt] [--json out.json] [--timeout seconds] [--keep] [--deps-cache dir] [--deps-only]',
   },
   pt: {
     heading: (ticket) => `Bug Detective QA: ticket ${ticket}`,
@@ -83,6 +83,6 @@ export const messages: Record<Language, Messages> = {
     jsonWritten: (path) => `Resultado em JSON gravado em ${path}`,
     logsKept: (path) => `Os logs e a cópia do workspace foram mantidos em ${path}`,
     usage:
-      'Uso: npm run qa -- --ticket <1-4> --workspace <caminho> [--lang en|pt] [--json saida.json] [--timeout segundos] [--keep] [--package pasta] [--deps-cache pasta] [--deps-only]',
+      'Uso: npm run qa -- --ticket <n> --package <pasta> --workspace <caminho> [--lang en|pt] [--json saida.json] [--timeout segundos] [--keep] [--deps-cache pasta] [--deps-only]',
   },
 };

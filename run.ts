@@ -15,7 +15,7 @@ import { createWriteStream, existsSync } from 'node:fs';
 import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { tmpdir } from 'node:os';
-import { basename, join, relative, resolve } from 'node:path';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { messages } from './messages.ts';
 import type { Language, Messages } from './messages.ts';
@@ -41,7 +41,7 @@ interface Options {
   timeoutSeconds: number;
   keep: boolean;
   verbose: boolean;
-  /** Stage package directory (gate1/, gate2/). Defaults to stages/stage-N in this folder. */
+  /** Ticket package directory (gate1/, gate2/), for example tickets/front-1 in this folder. */
   packageDir: string;
   /** Directory of installed dependencies, keyed by lockfile, reused instead of `npm ci`. */
   depsCache?: string;
@@ -95,8 +95,9 @@ function parseOptions(): Options {
     language &&
     Number.isInteger(ticket) &&
     ticket >= 1 &&
-    ticket <= 4 &&
+    ticket <= 99 &&
     values.workspace &&
+    (values.package || values['deps-only']) &&
     Number.isFinite(timeoutSeconds) &&
     timeoutSeconds > 0;
 
@@ -112,9 +113,9 @@ function parseOptions(): Options {
   }
 
   const cwd = process.env.INIT_CWD ?? process.cwd();
-  const packageDir = values.package ? resolve(cwd, values.package) : join(QA_DIR, 'stages', `stage-${ticket}`);
+  const packageDir = values.package ? resolve(cwd, values.package) : '';
   if (!values['deps-only'] && !existsSync(join(packageDir, 'gate1')) && !existsSync(join(packageDir, 'gate2'))) {
-    console.error(`Stage package not found or has no gate1/ and gate2/: ${packageDir}`);
+    console.error(`Ticket package not found or has no gate1/ and gate2/: ${packageDir}`);
     process.exit(2);
   }
   if (values['deps-only'] && !values['deps-cache']) {
@@ -598,15 +599,15 @@ function gate2Env(context: Context): Record<string, string> {
 /**
  * Returns the Gate 2 test directory. Spec files import `../../../support/`, and Playwright and
  * its dependencies resolve from this folder's node_modules, so a package from another directory
- * is copied into a temporary `stages/stage-N/` layout inside this folder, next to a copy of support/.
+ * is copied into a temporary `tickets/<id>/` layout inside this folder, next to a copy of support/.
  */
 async function prepareGate2(options: Options): Promise<{ dir: string; cleanup: () => Promise<void> }> {
-  const defaultDir = join(QA_DIR, 'stages', `stage-${options.ticket}`);
-  if (resolve(options.packageDir) === defaultDir) {
-    return { dir: join(defaultDir, 'gate2'), cleanup: async () => {} };
+  const packageDir = resolve(options.packageDir);
+  if (dirname(packageDir) === join(QA_DIR, 'tickets')) {
+    return { dir: join(packageDir, 'gate2'), cleanup: async () => {} };
   }
   const root = await mkdtemp(join(QA_DIR, '.package-'));
-  const dir = join(root, 'stages', `stage-${options.ticket}`, 'gate2');
+  const dir = join(root, 'tickets', basename(packageDir), 'gate2');
   await cp(join(options.packageDir, 'gate2'), dir, { recursive: true });
   await cp(join(QA_DIR, 'support'), join(root, 'support'), { recursive: true });
   return { dir, cleanup: () => rm(root, { recursive: true, force: true }) };
