@@ -1,0 +1,81 @@
+{
+  "format": "bug-detective-project",
+  "formatVersion": 1,
+  "project": {
+    "id": "supportdesk",
+    "name": "SupportDesk"
+  },
+  "version": "2.0.0",
+  "createdAt": "2026-11-01T19:00:58.057Z",
+  "tickets": {
+    "total": 4,
+    "front": 4,
+    "back": 0
+  },
+  "entries": [
+    {
+      "id": "front-1",
+      "track": "front",
+      "order": 1,
+      "branch": "front-1",
+      "tag": "front-1-v2.0.0",
+      "commit": "1253430a5dc8f83b4bd18a073d7764d8e305d32b",
+      "commitMessage": "SupportDesk release front-1",
+      "codeDigest": "sha256:0fcfd9231aa7c7d84393f9070bfdc8f52418172a67ec233550cc1f76d0889c26",
+      "codeFiles": 51,
+      "package": {
+        "path": "tickets/front-1",
+        "files": 16,
+        "digest": "sha256:f423c10b3f3be2c8190421ba7be1efac26eb473f99069c308384034e0590f6d0"
+      }
+    },
+    {
+      "id": "front-2",
+      "track": "front",
+      "order": 2,
+      "branch": "front-2",
+      "tag": "front-2-v2.0.0",
+      "commit": "4f8c4853e7f5161fb5e380b2a8c62e9557227943",
+      "commitMessage": "SupportDesk release front-2",
+      "codeDigest": "sha256:e12e1f95f9c6ddc78dfeb35b876a0eec19847ad3a7cc754068732ef1e68d1938",
+      "codeFiles": 52,
+      "package": {
+        "path": "tickets/front-2",
+        "files": 17,
+        "digest": "sha256:0375f5b1b14a9fc7decd25168a82f8ec7cbfb2aed77d944065b9ee953c560d1e"
+      }
+    },
+    {
+      "id": "front-3",
+      "track": "front",
+      "order": 3,
+      "branch": "front-3",
+      "tag": "front-3-v2.0.0",
+      "commit": "cbe853ca728205f3026e69eb55110f57ba714fb3",
+      "commitMessage": "SupportDesk release front-3",
+      "codeDigest": "sha256:7ee07cfc0a5e48bc649ff44201eb6891d5bb6567d289d58fdf7d1cf3436d420e",
+      "codeFiles": 53,
+      "package": {
+        "path": "tickets/front-3",
+        "files": 18,
+        "digest": "sha256:361e79138af6d54f68a50663c6fe7cc5658ac3df293592728993370d7c6b06ec"
+      }
+    },
+    {
+      "id": "front-4",
+      "track": "front",
+      "order": 4,
+      "branch": "front-4",
+      "tag": "front-4-v2.0.0",
+      "commit": "34e1c250cce90ee9c2057ea247118d023d3c366a",
+      "commitMessage": "SupportDesk release front-4",
+      "codeDigest": "sha256:61548c45a39b2b84aefdf72bdc2e759c9cebf82bd1697f51729133617232eb6f",
+      "codeFiles": 54,
+      "package": {
+        "path": "tickets/front-4",
+        "files": 19,
+        "digest": "sha256:713f909b7e46e6b525f40f0c157e4b19216cb98e8b423531d8121be46d78e4c1"
+      }
+    }
+  ]
+}
