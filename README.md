@@ -15,27 +15,29 @@ supportdesk-qa/
   manifest.json          the published manifest (generated, never edited by hand)
   review.json            the code review configuration (paths left out of the review), optional
   story.en.json, story.pt.json   the project's story: client, project and Rafaela's messages
-                         (welcome, one assignment per ticket id such as front-1, completion)
+                         (welcome, one assignment per ticket id such as front-1, completion = the
+                         project is done with the first track, trackCompletion = each later track;
+                         both may use {{track}}). Assignments never mention another ticket.
   run.ts                 the QA CLI
   messages.ts            report messages (en, pt)
   playwright.config.ts   Gate 2 config (Chromium, headless, 1 worker)
   support/               Gate 2 helpers and the progress reporters
   scripts/
-    build-tickets.sh     rebuilds one branch per ticket folder from main
+    build-tickets.sh     regenerates every tickets/<id>/gate1/, then rebuilds one branch per ticket folder from main
     verify-tickets.sh    runs the verification matrix
     tickets.sh           the ticket queue (sourced by both scripts)
   tickets/<id>/          one folder per ticket, named <track>-<order>: front-1, front-2, ..., back-1, ...
     ticket.en.md, ticket.pt.md   the ticket as a Jira card; copied to the branch root as TICKET.en.md / TICKET.pt.md
     bug.patch            main -> the ticket branch (the bug only)
-    gate1/               the ticket's project tests and test support files (mirrors repo paths)
+    gate1/               generated: main's tests plus every other ticket's regression test (mirrors repo paths)
     gate2/               hidden Playwright/API validation for the ticket
-    reference.patch      ticket branch -> fixed, including the bug's regression test
+    reference.patch      ticket branch -> fixed, including the bug's regression test as a NEW test file
     hints.en.json, hints.pt.json         3 progressive senior-dev hints ({ "hints": [string, string, string] })
     solution.en.md, solution.pt.md       the final solution, explaining reference.patch step by step
     review.en.md, review.pt.md           the senior-dev code review shown after QA passes
 ```
 
-Every file listed above is required in each ticket folder. The desktop app's ticket package is the folder without `bug.patch`. The queue is every `front-N` in order, then every `back-N`; the number of tickets comes from the folders.
+Every file listed above is required in each ticket folder. The player picks a track for each ticket (front, back, or fullstack, which alternates), so tickets can be taken in any order: each ticket's Gate 1 covers every other ticket. The desktop app's ticket package is the folder without `bug.patch`. The queue is every `front-N` in order, then every `back-N`; the number of tickets comes from the folders.
 
 ## Setup
 
@@ -86,7 +88,7 @@ scripts/verify-tickets.sh      # expected: buggy (pass, fail), fixed (pass, pass
 
 4. Publish: `pnpm run publish:project --qa ../supportdesk-qa --version <X.Y.Z>` in `desktop/`, then the push command it prints (see "Publishing a project" in `desktop/README.md`).
 
-Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, `TICKET.pt.md`). Its project tests are exactly `gate1/`: the baseline tests plus the regression tests added by every earlier ticket's `reference.patch` in the queue.
+Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, `TICKET.pt.md`). Its project tests are exactly `gate1/`, which `build-tickets.sh` writes: the test files of `main` plus the regression test of every **other** ticket (the new test file its `reference.patch` adds). Commit the regenerated `gate1/` folders. A bug must therefore not break any test of `main`: move such a test into the ticket's regression test instead.
 
 ## Gate 2 rules
 
