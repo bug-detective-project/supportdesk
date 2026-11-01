@@ -5,8 +5,8 @@
     "id": "supportdesk",
     "name": "SupportDesk"
   },
-  "version": "2.0.0",
-  "createdAt": "2026-11-01T19:00:58.057Z",
+  "version": "2.1.0",
+  "createdAt": "2026-11-01T19:53:55.212Z",
   "tickets": {
     "total": 4,
     "front": 4,
