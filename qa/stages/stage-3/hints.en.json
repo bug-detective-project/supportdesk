@@ -1,7 +1,0 @@
-{
-  "hints": [
-    "The screen says it worked, so do not trust the screen: follow the data. Open DevTools on the Network tab, change the priority, and inspect the PATCH request: look at its request payload and its response. Then compare it with a status change, which does persist.",
-    "Every layer seems to succeed: the UI shows the new value and the server answers 200. When that happens, check that both sides agree on the shape of the data. Compare the field names the client sends with the field names the server reads.",
-    "Read toTicketPatch in client/src/api/tickets.ts and parseChanges in server/src/routes/tickets.ts. The form uses its own name for the value, the API contract in the README uses another, and the server silently ignores unknown fields."
-  ]
-}

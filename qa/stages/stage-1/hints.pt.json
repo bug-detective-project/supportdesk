@@ -1,7 +1,0 @@
-{
-  "hints": [
-    "Comece reproduzindo o problema com o DevTools do navegador aberto. Observe a aba Network enquanto clica em Next: a aplicação chega a pedir o novo ticket para a API? Compare o que a URL diz com o que foi requisitado.",
-    "A URL muda, mas a tela de detalhes é o mesmo componente React antes e depois do clique: o React Router o mantém montado e só o parâmetro da rota muda. Veja como e quando a tela de detalhes carrega o ticket.",
-    "Abra client/src/pages/TicketDetails.tsx e olhe o useEffect que chama fetchTicket. Pense no array de dependências: quais valores o efeito lê e quais deles o React observa? Pense também no que acontece quando uma requisição antiga termina depois de uma mais nova."
-  ]
-}

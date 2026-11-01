@@ -1,7 +1,0 @@
-{
-  "hints": [
-    "Uma página em branco em uma aplicação React quase sempre significa que um erro foi lançado durante a renderização. O servidor não tem nada a dizer sobre isso, então abra o Console do DevTools do navegador, abra um ticket quebrado e leia o primeiro erro vermelho e o stack trace dele.",
-    "Compare a resposta da API de um ticket quebrado com a de um que funciona (aba Network, ou abra /api/tickets/4 direto). O que muda no responsável? Depois encontre o componente e a linha indicados no stack trace; se ajudar, use os source maps ou coloque um breakpoint ali.",
-    "Veja como o responsável é renderizado em client/src/pages/TicketDetails.tsx e o tipo Ticket em client/src/api/tickets.ts. A API retorna assignee: null para tickets sem responsável, mas o tipo diz que é sempre um Employee, então o TypeScript não consegue avisar. Repare como o componente AssigneeName já trata esse caso."
-  ]
-}

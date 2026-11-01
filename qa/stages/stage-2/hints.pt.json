@@ -1,7 +1,0 @@
-{
-  "hints": [
-    "São dois sintomas, e o QA verifica os dois. Reproduza a atribuição que falha com o DevTools aberto na aba Network: qual código de status a requisição PATCH retorna, e o que diz o corpo da resposta? Depois compare com o que a tela mostra.",
-    "O servidor já recusa o funcionário que saiu. O problema está no client, em dois lugares: a lista de opções oferecida no dropdown de responsável e a forma como o handler de troca de responsável trata a requisição que envia.",
-    "Abra client/src/pages/TicketDetails.tsx e leia handleAssigneeChange. O resultado de updateTicket é aguardado e verificado antes de mostrar a mensagem de sucesso e o novo responsável? Compare com saveField, usado pelos controles de status e prioridade. Para o dropdown, veja o campo active que /api/employees retorna."
-  ]
-}

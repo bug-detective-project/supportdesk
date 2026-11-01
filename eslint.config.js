@@ -11,7 +11,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['**/node_modules/', '**/dist/', 'server/data/', 'qa/']),
+  globalIgnores(['**/node_modules/', '**/dist/', 'server/data/']),
   js.configs.recommended,
   tseslint.configs.recommended,
   stylistic.configs.customize({

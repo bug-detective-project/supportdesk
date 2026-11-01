@@ -9,4 +9,3 @@ package-lock.json
 node_modules/
 dist/
 server/data/
-qa/
