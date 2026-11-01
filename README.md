@@ -7,12 +7,15 @@ git clone git@github.com:bug-detective-project/supportdesk.git
 git -C supportdesk worktree add ../supportdesk-qa qa
 ```
 
-**This branch is the publication.** `manifest.json` (written by `pnpm run publish:project` in `desktop/`) lists every ticket with its branch, commit, tag and SHA-256 digests; the desktop app downloads this branch and checks every file against it. There are no GitHub Releases.
+**This branch is the publication.** The desktop app downloads it whole: the tickets, this QA CLI (it builds the QA image with it), `review.json` and the story. `manifest.json` (written by `pnpm run publish:project` in `desktop/`) lists every ticket with its branch, commit, tag and SHA-256 digests; the desktop app downloads this branch and checks every file against it. There are no GitHub Releases.
 
 ```
 supportdesk-qa/
   package.json           bugDetective.project: { id, name } of the project
   manifest.json          the published manifest (generated, never edited by hand)
+  review.json            the code review configuration (paths left out of the review), optional
+  story.en.json, story.pt.json   the project's story: client, project and Rafaela's messages
+                         (welcome, one assignment per ticket id such as front-1, completion)
   run.ts                 the QA CLI
   messages.ts            report messages (en, pt)
   playwright.config.ts   Gate 2 config (Chromium, headless, 1 worker)
