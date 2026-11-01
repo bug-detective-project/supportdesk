@@ -49,6 +49,10 @@
     "completion": {
       "subject": "Sprint concluída: quatro tickets fechados!",
       "body": "São os quatro tickets: navegação, atribuição, prioridade e a tela em branco. A Hannah, o Marcus e a Elena mandaram agradecimentos, e o time de suporte da Harborline está tendo uma semana bem mais tranquila.\n\nVocê rastreou estado assíncrono, seguiu dados entre client e servidor e depurou um erro só com o console do navegador. É exatamente o tipo de trabalho que a gente faz todo dia.\n\nObrigada pelo empenho. Na segunda a gente planeja a próxima sprint.\n\nRafaela"
+    },
+    "trackCompletion": {
+      "subject": "Trilha {{track}} concluída!",
+      "body": "Você fechou todos os tickets da trilha {{track}} do SupportDesk. O time da Hannah percebeu: a fila voltou a andar.\n\nObrigada pelo empenho.\n\nRafaela"
     }
   }
 }
