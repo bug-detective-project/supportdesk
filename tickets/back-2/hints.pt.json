@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Conte os tickets que a API devolve (GET /api/tickets) e compare com os ids. Quais estão faltando? O que eles têm em comum?",
+    "Todos os tickets que faltam têm assigneeId null. Olhe a consulta que carrega os tickets: como ela junta a tabela de tickets com a de funcionários?",
+    "selectTickets em server/src/repository.ts junta employees com um JOIN simples, que é um INNER JOIN: um ticket sem funcionário correspondente é descartado. A consulta precisa manter os tickets sem responsável e deixar as colunas do responsável como null."
+  ]
+}

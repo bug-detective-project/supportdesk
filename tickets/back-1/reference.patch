@@ -1,0 +1,63 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index 45ec709..ac0f8d0 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -55,10 +55,16 @@ function toEmployee(row: EmployeeRow): Employee {
+   return { ...row, active: row.active === 1 };
+ }
+ 
++function escapeLike(value: string): string {
++  return value.replace(/[\\%_]/g, (char) => `\\${char}`);
++}
++
+ export function listTickets(db: Db, search = ''): Ticket[] {
+   const term = search.trim();
+   const rows = term
+-    ? db.prepare(`${selectTickets} WHERE t.title LIKE ? ORDER BY t.id`).all(`%${term}%`)
++    ? db
++        .prepare(`${selectTickets} WHERE t.title LIKE ? ESCAPE '\\' ORDER BY t.id`)
++        .all(`%${escapeLike(term)}%`)
+     : db.prepare(`${selectTickets} ORDER BY t.id`).all();
+   return (rows as TicketRow[]).map(toTicket);
+ }
+diff --git a/server/src/search.test.ts b/server/src/search.test.ts
+new file mode 100644
+index 0000000..8eaaee3
+--- /dev/null
++++ b/server/src/search.test.ts
+@@ -0,0 +1,35 @@
++import request from 'supertest';
++import { afterEach, beforeEach, describe, expect, it } from 'vitest';
++import { createApp } from './app.ts';
++import { openDatabase, seedDatabase } from './db.ts';
++import type { Db } from './db.ts';
++
++let db: Db;
++let app: ReturnType<typeof createApp>;
++
++beforeEach(() => {
++  db = openDatabase(':memory:');
++  seedDatabase(db);
++  app = createApp(db);
++});
++
++afterEach(() => {
++  db.close();
++});
++
++const ids = (body: { id: number }[]) => body.map((ticket) => ticket.id);
++
++describe('search: % and _ are plain characters', () => {
++  it('matches % and _ literally', async () => {
++    const percent = await request(app).get('/api/tickets').query({ search: '%' });
++    const underscore = await request(app).get('/api/tickets').query({ search: 't_f' });
++
++    expect(ids(percent.body)).toEqual([8]);
++    expect(ids(underscore.body)).toEqual([5]);
++  });
++
++  it('finds "100%" and "report_final" only where they appear', async () => {
++    expect(ids((await request(app).get('/api/tickets').query({ search: '100%' })).body)).toEqual([8]);
++    expect(ids((await request(app).get('/api/tickets').query({ search: 'report_final' })).body)).toEqual([5]);
++  });
++});

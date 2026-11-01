@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Olhe o terminal do servidor quando a busca falha: o erro vem do SQLite, não do Express nem do client. Como é o SQL que falhou?",
+    "O apóstrofo de O'Brien fecha um texto literal antes da hora, então o que o usuário digitou passa a fazer parte do próprio SQL. Isso é SQL injection, e é por isso que ' OR '1'='1 se comporta diferente de uma busca normal.",
+    "listTickets em server/src/repository.ts coloca o termo de busca dentro do texto do SQL com uma template string. Passe o termo como parâmetro (um ? e o valor em .all(...)), como todas as outras consultas do arquivo, e mantenha o escape do LIKE."
+  ]
+}

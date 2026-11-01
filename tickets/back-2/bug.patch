@@ -1,0 +1,13 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index ac0f8d0..fe70209 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -32,7 +32,7 @@ const selectTickets = `
+   SELECT t.id, t.title, t.description, t.status, t.priority, t.assigneeId, t.createdAt, t.updatedAt,
+          e.name AS assigneeName, e.email AS assigneeEmail, e.active AS assigneeActive
+   FROM tickets t
+-  LEFT JOIN employees e ON e.id = t.assigneeId
++  JOIN employees e ON e.id = t.assigneeId
+ `;
+ 
+ function toTicket(row: TicketRow): Ticket {

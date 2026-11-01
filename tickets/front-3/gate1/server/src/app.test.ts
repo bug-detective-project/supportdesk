@@ -18,16 +18,6 @@ afterEach(() => {
 });
 
 describe('GET /api/tickets', () => {
-  it('returns all tickets ordered by id', async () => {
-    const response = await request(app).get('/api/tickets');
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(15);
-    expect(response.body.map((ticket: { id: number }) => ticket.id)).toEqual(
-      Array.from({ length: 15 }, (_, index) => index + 1),
-    );
-  });
-
   it('includes the assignee in each ticket', async () => {
     const response = await request(app).get('/api/tickets');
     const [first] = response.body;
@@ -46,14 +36,6 @@ describe('GET /api/tickets', () => {
     const response = await request(app).get('/api/tickets').query({ search: 'LOGIN' });
 
     expect(response.body.map((ticket: { id: number }) => ticket.id)).toEqual([1, 6]);
-  });
-
-  it('matches % and _ literally', async () => {
-    const percent = await request(app).get('/api/tickets').query({ search: '%' });
-    const underscore = await request(app).get('/api/tickets').query({ search: 't_f' });
-
-    expect(percent.body.map((ticket: { id: number }) => ticket.id)).toEqual([8]);
-    expect(underscore.body.map((ticket: { id: number }) => ticket.id)).toEqual([5]);
   });
 
   it('returns an empty list when nothing matches', async () => {
@@ -114,13 +96,6 @@ describe('PATCH /api/tickets/:id', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({ assigneeId: 5, assignee: { id: 5, name: 'Sofia Alvarez' } });
-  });
-
-  it('unassigns with null', async () => {
-    const response = await request(app).patch('/api/tickets/3').send({ assigneeId: null });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({ assigneeId: null, assignee: null });
   });
 
   it('updates updatedAt when something changes', async () => {

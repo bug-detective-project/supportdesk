@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Count the tickets the API returns (GET /api/tickets) and compare with the ids. Which ones are missing? What do they have in common?",
+    "All the missing tickets have assigneeId null. Look at the query that loads tickets: how does it combine the tickets table with the employees table?",
+    "selectTickets in server/src/repository.ts joins employees with a plain JOIN, which is an INNER JOIN: a ticket without a matching employee is dropped. The query needs to keep tickets with no assignee and leave the assignee columns null."
+  ]
+}

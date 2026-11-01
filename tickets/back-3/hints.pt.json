@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Mande a requisição você mesmo: PATCH /api/tickets/3 com {\"status\":\"closed\"} e depois um GET do ticket. O que foi salvo, e por que a API aceitou?",
+    "A rota valida cada campo antes de salvar. Encontre onde status e prioridade são conferidos e o que conta como \"um dos\" valores permitidos.",
+    "isOneOf em server/src/routes/tickets.ts compara sem diferenciar maiúsculas, mas parseChanges salva o valor exatamente como chegou. Ou recuse tudo que não seja exatamente um valor permitido, ou salve o valor permitido que bateu, nunca o texto recebido."
+  ]
+}

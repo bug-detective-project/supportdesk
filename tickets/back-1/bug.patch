@@ -1,0 +1,22 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index ac0f8d0..45ec709 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -55,16 +55,10 @@ function toEmployee(row: EmployeeRow): Employee {
+   return { ...row, active: row.active === 1 };
+ }
+ 
+-function escapeLike(value: string): string {
+-  return value.replace(/[\\%_]/g, (char) => `\\${char}`);
+-}
+-
+ export function listTickets(db: Db, search = ''): Ticket[] {
+   const term = search.trim();
+   const rows = term
+-    ? db
+-        .prepare(`${selectTickets} WHERE t.title LIKE ? ESCAPE '\\' ORDER BY t.id`)
+-        .all(`%${escapeLike(term)}%`)
++    ? db.prepare(`${selectTickets} WHERE t.title LIKE ? ORDER BY t.id`).all(`%${term}%`)
+     : db.prepare(`${selectTickets} ORDER BY t.id`).all();
+   return (rows as TicketRow[]).map(toTicket);
+ }

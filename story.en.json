@@ -30,25 +30,41 @@
     },
     "assignments": {
       "front-1": {
-        "subject": "Your first ticket: SD-214",
-        "body": "Hannah's team flagged this one this morning: the **Previous** and **Next** buttons on the ticket details page change the address bar, but the page keeps showing the old ticket. One agent already changed the status of the wrong ticket because of it.\n\nIt's a good first bug: easy to reproduce, and a classic. Take your time, reproduce it first, and check the browser DevTools.\n\nRafaela"
+        "subject": "New ticket: SD-214",
+        "body": "Hannah's team flagged this one: the **Previous** and **Next** buttons on the ticket details page change the address bar, but the page keeps showing the old ticket. One agent already changed the status of the wrong ticket because of it.\n\nIt's a classic, and easy to reproduce. Take your time, reproduce it first, and check the browser DevTools.\n\nRafaela"
       },
       "front-2": {
-        "subject": "Next up: SD-231",
-        "body": "Nice work on the navigation bug. Hannah's team noticed the difference right away.\n\nMarcus sent us a more worrying one: assigning a ticket to someone who left the company shows a **success** message, but nothing is saved. A customer waited three days because of it. Read the ticket carefully: there are two separate problems in it, and QA checks both.\n\nRafaela"
+        "subject": "New ticket: SD-231",
+        "body": "Marcus sent us a worrying one: assigning a ticket to someone who left the company shows a **success** message, but nothing is saved. A customer waited three days because of it.\n\nRead the ticket carefully: there are two separate problems in it, and QA checks both.\n\nRafaela"
       },
       "front-3": {
-        "subject": "Next up: SD-238",
-        "body": "Thanks for sorting out the assignments; Marcus says the team trusts the success messages again.\n\nElena reports that priority changes don't survive a page refresh. The screen says it worked, and there are no errors anywhere. This one is about following the data, so expect to spend some time in the Network tab.\n\nRafaela"
+        "subject": "New ticket: SD-238",
+        "body": "Elena reports that priority changes don't survive a page refresh. The screen says it worked, and there are no errors anywhere.\n\nThis one is about following the data, so expect to spend some time in the Network tab.\n\nRafaela"
       },
       "front-4": {
-        "subject": "Last ticket of the sprint: SD-245",
-        "body": "Great progress. This is the last one of this sprint, and it's marked **Critical**.\n\nSince the latest release, some tickets open as a completely blank page. The server logs are clean, so you'll need the browser to tell you what's going on. Priya says it's her favorite kind of bug to teach.\n\nRafaela"
+        "subject": "New ticket: SD-245",
+        "body": "This one is marked **Critical**: since the latest release, some tickets open as a completely blank page. The server logs are clean, so you'll need the browser to tell you what's going on.\n\nPriya says it's her favorite kind of bug to teach.\n\nRafaela"
+      },
+      "back-1": {
+        "subject": "New ticket: SD-252",
+        "body": "A server-side one: searching the ticket list for `%` or `_` returns every ticket. Hannah's team searches for file names like `report_final.csv` all day, so the search box is useless for them right now.\n\nStart from the API, not the screen: `curl` is your friend here.\n\nRafaela"
+      },
+      "back-2": {
+        "subject": "New ticket: SD-257",
+        "body": "Marcus is worried, and he's right: tickets without an assignee have disappeared from the list. Those are exactly the new tickets his team triages every morning.\n\nThe answer is in how the server loads tickets from the database. Compare what the API returns with what you expect.\n\nRafaela"
+      },
+      "back-3": {
+        "subject": "New ticket: SD-263",
+        "body": "Marcus's nightly automation sent `\"status\": \"closed\"` in lowercase, and the API saved it as is. Now 38 tickets show an empty status.\n\nThis one is about validation: what the API accepts and what it actually stores.\n\nRafaela"
+      },
+      "back-4": {
+        "subject": "New ticket: SD-270",
+        "body": "**Critical**, and Priya added the `security` label: searching for a name with an apostrophe, like `O'Brien`, breaks the ticket list.\n\nRead the server log carefully. A broken query is a sign that user input reached the SQL itself.\n\nRafaela"
       }
     },
     "completion": {
-      "subject": "Sprint done: four tickets closed!",
-      "body": "That's all four tickets: navigation, assignment, priority and the blank screen. Hannah, Marcus and Elena all sent their thanks, and Harborline's support team is having a much calmer week.\n\nYou traced async state, followed data across the client and the server, and debugged a crash with nothing but the browser console. That's exactly the kind of work we do every day.\n\nThanks for the effort. On Monday we plan the next sprint.\n\nRafaela"
+      "subject": "SupportDesk: project done!",
+      "body": "You completed the whole {{track}} track of SupportDesk, so this project is done on your side. Hannah, Marcus and Elena all sent their thanks, and Harborline's support team is having a much calmer week.\n\nYou can keep going with the other tracks of SupportDesk whenever you like. New projects are on their way too.\n\nThanks for the effort.\n\nRafaela"
     },
     "trackCompletion": {
       "subject": "The {{track}} track is done!",

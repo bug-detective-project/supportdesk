@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Send the request yourself: PATCH /api/tickets/3 with {\"status\":\"closed\"}, then GET the ticket. What was saved, and why did the API accept it?",
+    "The route validates every field before saving. Find where status and priority are checked and what counts as \"one of\" the allowed values.",
+    "isOneOf in server/src/routes/tickets.ts compares ignoring case, but parseChanges then saves the value exactly as it was sent. Either reject anything that is not an exact allowed value, or save the allowed value that matched, never the raw input."
+  ]
+}

@@ -1,0 +1,14 @@
+diff --git a/server/src/routes/tickets.ts b/server/src/routes/tickets.ts
+index b433eec..c45a99f 100644
+--- a/server/src/routes/tickets.ts
++++ b/server/src/routes/tickets.ts
+@@ -19,7 +19,8 @@ function parseId(value: string): number | undefined {
+ }
+ 
+ function isOneOf<T extends string>(values: readonly T[], value: unknown): value is T {
+-  return typeof value === 'string' && (values as readonly string[]).includes(value);
++  // Agents type statuses by hand in the API client; accept any capitalization.
++  return typeof value === 'string' && values.some((item) => item.toLowerCase() === value.toLowerCase());
+ }
+ 
+ function parseChanges(db: Db, body: unknown): TicketChanges {

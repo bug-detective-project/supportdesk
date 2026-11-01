@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Look at the server terminal when the search fails: the error comes from SQLite, not from Express or the client. What does the failing SQL look like?",
+    "The apostrophe in O'Brien ends a string literal early, so the text the user typed becomes part of the SQL itself. That is SQL injection, and it is why ' OR '1'='1 behaves differently from a normal search.",
+    "listTickets in server/src/repository.ts puts the search term inside the SQL text with a template string. Pass it as a parameter (a ? placeholder and the value in .all(...)) like every other query in the file, and keep the LIKE escaping."
+  ]
+}

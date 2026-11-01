@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Reproduza sem a interface: chame GET /api/tickets?search=%25 com curl ou no navegador. Se a API já devolve todos os tickets, o problema não está no client.",
+    "No SQL, o LIKE dá um significado próprio a % e _: % encontra qualquer sequência e _ qualquer caractere. O texto do usuário dentro de um padrão LIKE precisa ter esses caracteres escapados, e a consulta precisa dizer qual caractere de escape usa.",
+    "Leia listTickets em server/src/repository.ts. Veja como o padrão é montado: o texto do usuário entra sem escape, e a consulta não tem cláusula ESCAPE."
+  ]
+}
