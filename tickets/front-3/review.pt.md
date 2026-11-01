@@ -19,7 +19,7 @@ Três decisões razoáveis se combinaram em uma perda de dados silenciosa.
 ## Compare com a sua correção
 
 - Você mudou o mapeamento no client ou fez o servidor aceitar `priorityLevel`? Aceitar um apelido no servidor também salvaria o valor, mas muda a API para todo mundo e esconde o erro do client.
-- Você pensou em atualizar a tela a partir da resposta do servidor, como o handler de responsável faz desde o ticket 2? Isso teria deixado este bug visível na hora.
+- Você pensou em atualizar a tela a partir da resposta do servidor, como o handler de responsável faz? Isso teria deixado este bug visível na hora.
 
 ## Para a próxima vez
 

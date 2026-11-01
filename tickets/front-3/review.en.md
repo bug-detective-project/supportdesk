@@ -19,7 +19,7 @@ Three reasonable decisions combined into silent data loss.
 ## Compare with your fix
 
 - Did you change the client mapping, or make the server accept `priorityLevel`? Accepting an alias on the server would also persist the value, but it changes the API for everyone and hides the client mistake.
-- Did you consider updating the screen from the server response, like the assignment handler does since ticket 2? It would have made this bug visible immediately.
+- Did you consider updating the screen from the server response, like the assignment handler does? It would have made this bug visible immediately.
 
 ## Watch for next time
 
