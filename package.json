@@ -6,7 +6,8 @@
   "bugDetective": {
     "project": {
       "id": "supportdesk",
-      "name": "SupportDesk"
+      "name": "SupportDesk",
+      "difficulty": "beginner"
     }
   },
   "engines": {
