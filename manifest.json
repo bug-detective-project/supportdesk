@@ -4,10 +4,15 @@
   "project": {
     "id": "supportdesk",
     "name": "SupportDesk",
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "stack": {
+      "frontend": "React · Vite",
+      "backend": "Node.js · Express",
+      "database": "SQLite"
+    }
   },
-  "version": "2.4.1",
-  "createdAt": "2026-11-02T14:58:57.245Z",
+  "version": "2.5.0",
+  "createdAt": "2026-11-02T22:09:14.448Z",
   "tickets": {
     "total": 8,
     "front": 4,
