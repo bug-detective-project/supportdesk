@@ -12,28 +12,28 @@ index bec2ef0..bc318f3 100644
    updatedAt: string;
  }
 diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
-index 0a21047..2890b8e 100644
+index 837676a..7f44755 100644
 --- a/client/src/pages/TicketDetails.tsx
 +++ b/client/src/pages/TicketDetails.tsx
-@@ -242,9 +242,15 @@ export function TicketDetails() {
-               <label htmlFor="assignee">Assignee</label>
-             </dt>
-             <dd>
--              <a className="assignee-name" href={`mailto:${ticket.assignee.email}`} data-testid="assignee-name">
--                {ticket.assignee.name}
--              </a>
-+              {ticket.assignee ? (
-+                <a className="assignee-name" href={`mailto:${ticket.assignee.email}`} data-testid="assignee-name">
-+                  {ticket.assignee.name}
-+                </a>
-+              ) : (
-+                <span className="assignee-name" data-testid="assignee-name">
-+                  Unassigned
-+                </span>
-+              )}
-               <select
-                 id="assignee"
-                 value={ticket.assigneeId ?? ''}
+@@ -315,10 +315,15 @@ export function TicketDetails() {
+                     {ticket.priority}
+                   </span>
+                   <span className="assignee-cell">
+-                    <span className="avatar avatar-user" aria-hidden="true">
+-                      {getInitials(ticket.assignee.name)}
++                    <span
++                      className={`avatar ${ticket.assignee ? 'avatar-user' : 'avatar-unassigned'}`}
++                      aria-hidden="true"
++                    >
++                      {ticket.assignee ? getInitials(ticket.assignee.name) : '?'}
++                    </span>
++                    <span className="assignee-text">
++                      <AssigneeName assignee={ticket.assignee} />
+                     </span>
+-                    <span className="assignee-text">{ticket.assignee.name}</span>
+                   </span>
+                 </div>
+               </div>
 diff --git a/client/src/pages/TicketDetails.unassigned.test.tsx b/client/src/pages/TicketDetails.unassigned.test.tsx
 new file mode 100644
 index 0000000..9c1966e

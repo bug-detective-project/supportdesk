@@ -2,6 +2,6 @@
   "hints": [
     "A blank page in a React app almost always means an error was thrown while rendering. The server has nothing to say about it, so open the browser's DevTools Console, open a broken ticket, and read the first red error and its stack trace.",
     "Compare the API response for a broken ticket with one that works (Network tab, or open /api/tickets/4 directly). What is different about the assignee? Then find the component and the line from the stack trace; enable source maps or set a breakpoint there if it helps.",
-    "Look at how the assignee is rendered in client/src/pages/TicketDetails.tsx, and at the Ticket type in client/src/api/tickets.ts. The API returns assignee: null for unassigned tickets, but the type says it is always an Employee, so TypeScript cannot warn you. Notice how the AssigneeName component already handles this case."
+    "Look at how the assignee is shown in the ticket header in client/src/pages/TicketDetails.tsx, and at the Ticket type in client/src/api/tickets.ts. The API returns assignee: null for unassigned tickets, but the type says it is always an Employee, so TypeScript cannot warn you. Notice how the ticket list (client/src/pages/TicketList.tsx) already shows an unassigned ticket."
   ]
 }

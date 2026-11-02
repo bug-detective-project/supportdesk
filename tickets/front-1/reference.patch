@@ -60,10 +60,10 @@ index 0000000..22e42f2
 +  });
 +});
 diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
-index 3a9a32d..ce096f5 100644
+index ad18d91..4ff8aca 100644
 --- a/client/src/pages/TicketDetails.tsx
 +++ b/client/src/pages/TicketDetails.tsx
-@@ -34,12 +34,27 @@ export function TicketDetails() {
+@@ -46,14 +46,29 @@ export function TicketDetails() {
    const [feedback, setFeedback] = useState<Feedback | null>(null);
  
    useEffect(() => {
@@ -79,10 +79,14 @@ index 3a9a32d..ce096f5 100644
 +        }
 +      })
        .catch((error: unknown) => {
--        setLoadError(error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.');
+-        setLoadError(
+-          error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.',
+-        );
 +        if (!ignore) {
 +          setTicket(null);
-+          setLoadError(error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.');
++          setLoadError(
++            error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.',
++          );
 +        }
        });
 -  }, []);

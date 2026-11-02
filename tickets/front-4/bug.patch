@@ -12,27 +12,27 @@ index bc318f3..bec2ef0 100644
    updatedAt: string;
  }
 diff --git a/client/src/pages/TicketDetails.tsx b/client/src/pages/TicketDetails.tsx
-index ce096f5..0a21047 100644
+index 4ff8aca..837676a 100644
 --- a/client/src/pages/TicketDetails.tsx
 +++ b/client/src/pages/TicketDetails.tsx
-@@ -13,7 +13,6 @@ import {
-   updateTicket,
- } from '../api/tickets.ts';
+@@ -15,6 +15,7 @@ import {
  import type { Ticket, TicketFormValues, TicketPriority, TicketStatus } from '../api/tickets.ts';
--import { AssigneeName } from '../components/AssigneeName.tsx';
+ import { AssigneeName } from '../components/AssigneeName.tsx';
  import { withSearch } from '../searchParams.ts';
++import { getInitials } from '../utils/formatters.ts';
  
- interface Feedback {
-@@ -243,9 +242,9 @@ export function TicketDetails() {
-               <label htmlFor="assignee">Assignee</label>
-             </dt>
-             <dd>
--              <span className="assignee-name" data-testid="assignee-name">
--                <AssigneeName assignee={ticket.assignee} />
--              </span>
-+              <a className="assignee-name" href={`mailto:${ticket.assignee.email}`} data-testid="assignee-name">
-+                {ticket.assignee.name}
-+              </a>
-               <select
-                 id="assignee"
-                 value={ticket.assigneeId ?? ''}
+ const STATUS_ICONS: Record<TicketStatus, string> = {
+   'Closed': '●',
+@@ -313,6 +314,12 @@ export function TicketDetails() {
+                     <span className="badge-indicator-dot" aria-hidden="true" />
+                     {ticket.priority}
+                   </span>
++                  <span className="assignee-cell">
++                    <span className="avatar avatar-user" aria-hidden="true">
++                      {getInitials(ticket.assignee.name)}
++                    </span>
++                    <span className="assignee-text">{ticket.assignee.name}</span>
++                  </span>
+                 </div>
+               </div>
+               <h1 data-testid="ticket-title">{ticket.title}</h1>
