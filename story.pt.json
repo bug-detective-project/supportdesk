@@ -21,7 +21,12 @@
   "project": {
     "name": "SupportDesk",
     "about": "Uma aplicação de suporte com duas telas: uma lista de tickets com busca e uma tela de detalhes em que os atendentes mudam status, prioridade e responsável.",
-    "stack": "React e Vite, Node.js e Express, SQLite"
+    "stack": "React e Vite, Node.js e Express, SQLite",
+    "skills": [
+      "Assincronia e estado",
+      "Rastrear o fluxo de dados",
+      "Ler erros e depurar"
+    ]
   },
   "messages": {
     "welcome": {
