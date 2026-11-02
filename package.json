@@ -7,7 +7,12 @@
     "project": {
       "id": "supportdesk",
       "name": "SupportDesk",
-      "difficulty": "beginner"
+      "difficulty": "beginner",
+      "stack": {
+        "frontend": "React · Vite",
+        "backend": "Node.js · Express",
+        "database": "SQLite"
+      }
     }
   },
   "engines": {
@@ -19,7 +24,7 @@
     "postinstall": "playwright install chromium"
   },
   "devDependencies": {
-    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.0.2",
+    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.1.0",
     "@playwright/test": "1.64.1",
     "@types/node": "26.6.5",
     "typescript": "7.0.2",
