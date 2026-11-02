@@ -10,6 +10,6 @@ on:
 
 jobs:
   project:
-    uses: bug-detective-project/catalog/.github/workflows/project.yml@v1.0.1
+    uses: bug-detective-project/catalog/.github/workflows/project.yml@v1.0.2
     permissions:
       contents: write
