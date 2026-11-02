@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Alta |
 | Relator | Marcus Bell (Gerente de operações de suporte) |
-| Responsável | Não atribuído |
+| Trilha | Front-end |
 | Versão afetada | 1.2 |
 | Componente | Detalhes do ticket |
 | Rótulos | `impacto-cliente`, `atribuicao` |

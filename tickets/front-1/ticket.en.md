@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | High |
 | Reporter | Hannah Brooks (Support team lead) |
-| Assignee | Unassigned |
+| Track | Front-end |
 | Affects version | 1.1 |
 | Component | Ticket details |
 | Labels | `customer-impact`, `navigation` |

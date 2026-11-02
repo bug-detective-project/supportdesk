@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Média |
 | Relator | Elena Duarte (Supervisora de atendimento ao cliente) |
-| Responsável | Não atribuído |
+| Trilha | Front-end |
 | Versão afetada | 1.3 |
 | Componente | Detalhes do ticket |
 | Rótulos | `perda-de-dados`, `triagem` |

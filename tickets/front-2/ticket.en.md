@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | High |
 | Reporter | Marcus Bell (Support operations manager) |
-| Assignee | Unassigned |
+| Track | Front-end |
 | Affects version | 1.2 |
 | Component | Ticket details |
 | Labels | `customer-impact`, `assignment` |

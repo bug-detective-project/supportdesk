@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | Critical |
 | Reporter | Hannah Brooks (Support team lead) |
-| Assignee | Unassigned |
+| Track | Front-end |
 | Affects version | 1.4 |
 | Component | Ticket details |
 | Labels | `blocker`, `regression` |

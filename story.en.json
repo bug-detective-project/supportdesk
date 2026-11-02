@@ -20,7 +20,7 @@
   },
   "project": {
     "name": "SupportDesk",
-    "about": "A two-screen support app: a ticket list with search, and a details screen where agents change status, priority and assignee. React and Vite on the front end, Node.js, Express and SQLite on the back end.",
+    "about": "A two-screen support app: a ticket list with search, and a details screen where agents change status, priority and assignee.",
     "stack": "React and Vite, Node.js and Express, SQLite"
   },
   "messages": {

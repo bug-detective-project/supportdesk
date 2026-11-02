@@ -27,7 +27,7 @@ supportdesk-qa/
     verify-tickets.sh    runs the verification matrix
     tickets.sh           the ticket queue (sourced by both scripts)
   tickets/<id>/          one folder per ticket, named <track>-<order>: front-1, front-2, ..., back-1, ...
-    ticket.en.md, ticket.pt.md   the ticket as a Jira card; copied to the branch root as TICKET.en.md / TICKET.pt.md
+    ticket.en.md, ticket.pt.md   the ticket as a Jira card (its Track row says Front-end or Back-end); copied to the branch root as TICKET.en.md / TICKET.pt.md
     bug.patch            main -> the ticket branch (the bug only)
     gate1/               generated: main's tests plus every other ticket's regression test (mirrors repo paths)
     gate2/               hidden Playwright/API validation for the ticket

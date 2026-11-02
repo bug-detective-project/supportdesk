@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | Medium |
 | Reporter | Elena Duarte (Customer support supervisor) |
-| Assignee | Unassigned |
+| Track | Front-end |
 | Affects version | 1.3 |
 | Component | Ticket details |
 | Labels | `data-loss`, `triage` |

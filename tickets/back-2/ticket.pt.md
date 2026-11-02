@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Alta |
 | Relator | Marcus Bell (Gerente de operações de suporte) |
-| Responsável | Não atribuído |
+| Trilha | Back-end |
 | Versão afetada | 1.6 |
 | Componente | Lista de tickets (API) |
 | Rótulos | `impacto-cliente`, `triagem`, `api` |

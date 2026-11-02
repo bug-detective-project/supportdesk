@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | Critical |
 | Reporter | Elena Duarte (Customer care supervisor) |
-| Assignee | Unassigned |
+| Track | Back-end |
 | Affects version | 1.8 |
 | Component | Ticket search (API) |
 | Labels | `search`, `api`, `security` |

@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | Medium |
 | Reporter | Hannah Brooks (Support team lead) |
-| Assignee | Unassigned |
+| Track | Back-end |
 | Affects version | 1.5 |
 | Component | Ticket search (API) |
 | Labels | `search`, `api` |

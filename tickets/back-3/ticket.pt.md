@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Alta |
 | Relator | Marcus Bell (Gerente de operações de suporte) |
-| Responsável | Não atribuído |
+| Trilha | Back-end |
 | Versão afetada | 1.7 |
 | Componente | Atualização de tickets (API) |
 | Rótulos | `qualidade-de-dados`, `api`, `automacao` |

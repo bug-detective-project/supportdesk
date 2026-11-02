@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Alta |
 | Relator | Hannah Brooks (Líder do time de suporte) |
-| Responsável | Não atribuído |
+| Trilha | Front-end |
 | Versão afetada | 1.1 |
 | Componente | Detalhes do ticket |
 | Rótulos | `impacto-cliente`, `navegacao` |

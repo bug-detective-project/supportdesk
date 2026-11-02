@@ -7,7 +7,7 @@
 | Status | To Do |
 | Priority | High |
 | Reporter | Marcus Bell (Support operations manager) |
-| Assignee | Unassigned |
+| Track | Back-end |
 | Affects version | 1.6 |
 | Component | Ticket list (API) |
 | Labels | `customer-impact`, `triage`, `api` |

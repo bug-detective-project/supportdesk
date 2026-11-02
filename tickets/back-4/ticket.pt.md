@@ -7,7 +7,7 @@
 | Status | A fazer |
 | Prioridade | Crítica |
 | Relator | Elena Duarte (Supervisora de atendimento ao cliente) |
-| Responsável | Não atribuído |
+| Trilha | Back-end |
 | Versão afetada | 1.8 |
 | Componente | Busca de tickets (API) |
 | Rótulos | `busca`, `api`, `seguranca` |
