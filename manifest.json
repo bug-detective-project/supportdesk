@@ -6,8 +6,8 @@
     "name": "SupportDesk",
     "difficulty": "beginner"
   },
-  "version": "2.4.0",
-  "createdAt": "2026-11-02T12:43:40.204Z",
+  "version": "2.4.1",
+  "createdAt": "2026-11-02T14:58:57.245Z",
   "tickets": {
     "total": 8,
     "front": 4,

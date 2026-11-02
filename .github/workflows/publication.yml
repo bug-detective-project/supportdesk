@@ -1,0 +1,15 @@
+name: publication
+
+# A pull request into qa runs bd validate and bd verify; the merge publishes and is tagged
+# qa-v<version>. See the catalog's README.
+on:
+  pull_request:
+    branches: [qa]
+  push:
+    branches: [qa]
+
+jobs:
+  project:
+    uses: bug-detective-project/catalog/.github/workflows/project.yml@v1.0.2
+    permissions:
+      contents: write

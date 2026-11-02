@@ -7,7 +7,7 @@ git clone git@github.com:bug-detective-project/supportdesk.git
 git -C supportdesk worktree add ../supportdesk-qa qa
 ```
 
-**This branch is the publication.** The desktop app downloads it whole: the tickets, this QA CLI (it builds the QA image with it), `review.json` and the story. `manifest.json` (written by `pnpm run publish:project` in `desktop/`) lists every ticket with its branch, commit, tag and SHA-256 digests; the desktop app downloads this branch and checks every file against it. There are no GitHub Releases.
+**This branch is the publication.** The desktop app downloads it whole: the tickets, this QA CLI (it builds the QA image with it), `review.json` and the story. `manifest.json` (written by `npx bd publish`) lists every ticket with its branch, commit, tag and SHA-256 digests; the desktop app downloads this branch and checks every file against it. There are no GitHub Releases, and `qa` is protected: it changes only through a pull request whose checks (`bd validate` and `bd verify`) pass.
 
 ```
 supportdesk-qa/
@@ -22,10 +22,7 @@ supportdesk-qa/
   messages.ts            report messages (en, pt)
   playwright.config.ts   Gate 2 config (Chromium, headless, 1 worker)
   support/               Gate 2 helpers and the progress reporters
-  scripts/
-    build-tickets.sh     regenerates every tickets/<id>/gate1/, then rebuilds one branch per ticket folder from main
-    verify-tickets.sh    runs the verification matrix
-    tickets.sh           the ticket queue (sourced by both scripts)
+  .github/workflows/publication.yml   the pull request checks and the qa-v<version> tag (the catalog's project.yml)
   tickets/<id>/          one folder per ticket, named <track>-<order>: front-1, front-2, ..., back-1, ...
     ticket.en.md, ticket.pt.md   the ticket as a Jira card (its Track row says Front-end or Back-end); copied to the branch root as TICKET.en.md / TICKET.pt.md
     bug.patch            main -> the ticket branch (the bug only)
@@ -75,20 +72,21 @@ The exit code is 0 only when both gates pass. `--json` writes `{ ticket, gate, s
 
 ## Authoring workflow
 
-After changing the app on `main`:
+The authoring tools come from [`bug-detective-project/catalog`](https://github.com/bug-detective-project/catalog) (`bd`, a dev dependency, so `npx bd` works here; its README has the details). Work on a branch of `qa`, never on `qa` itself:
 
-1. Update `tickets/<id>/gate1/` if the project tests or test support files changed.
-2. Regenerate `bug.patch` / `reference.patch` if they no longer apply.
+1. `git switch -c publish/<X.Y.Z>`.
+2. After changing the app on `main`: update `tickets/<id>/gate1/` support files if needed, and regenerate `bug.patch` / `reference.patch` if they no longer apply.
 3. Rebuild the ticket branches and verify:
 
 ```sh
-scripts/build-tickets.sh       # recreates one orphan branch per tickets/<id>/
-scripts/verify-tickets.sh      # expected: buggy (pass, fail), fixed (pass, pass)
+npx bd build       # regenerates every gate1/ and one orphan branch per tickets/<id>/ (commit the gate1/ changes)
+npx bd verify      # expected: buggy (pass, fail), fixed (pass, pass)
 ```
 
-4. Publish: `pnpm run publish:project --qa ../supportdesk-qa --version <X.Y.Z>` in `desktop/`, then the push command it prints (see "Publishing a project" in `desktop/README.md`).
+4. `npx bd publish --version <X.Y.Z>`: writes `manifest.json`, tags new ticket commits (`<id>-v<X.Y.Z>`), commits, pushes the ticket branches, the tags and your branch, and prints the pull request link. It never pushes `qa`.
+5. Open the pull request into `qa`. Its checks run `bd validate` and `bd verify`; the merge reaches players the next time they take a ticket and is tagged `qa-v<X.Y.Z>`.
 
-Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, `TICKET.pt.md`). Its project tests are exactly `gate1/`, which `build-tickets.sh` writes: the test files of `main` plus the regression test of every **other** ticket (the new test file its `reference.patch` adds). Commit the regenerated `gate1/` folders. A bug must therefore not break any test of `main`: move such a test into the ticket's regression test instead.
+Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, `TICKET.pt.md`). Its project tests are exactly `gate1/`, which `bd build` writes: the test files of `main` plus the regression test of every **other** ticket (the new test file its `reference.patch` adds). Commit the regenerated `gate1/` folders. A bug must therefore not break any test of `main`: move such a test into the ticket's regression test instead.
 
 ## Gate 2 rules
 
