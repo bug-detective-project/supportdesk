@@ -6,8 +6,8 @@
     "name": "SupportDesk",
     "difficulty": "beginner"
   },
-  "version": "2.3.1",
-  "createdAt": "2026-11-02T08:49:26.220Z",
+  "version": "2.4.0",
+  "createdAt": "2026-11-02T12:43:40.204Z",
   "tickets": {
     "total": 8,
     "front": 4,
@@ -19,15 +19,15 @@
       "track": "front",
       "order": 1,
       "branch": "front-1",
-      "tag": "front-1-v2.3.1",
-      "commit": "d2d4d3053c820728bc9051c962b106d71ba3e8a8",
+      "tag": "front-1-v2.4.0",
+      "commit": "66e4295371463f0f7a94bae515af38038d0bf573",
       "commitMessage": "SupportDesk release front-1",
-      "codeDigest": "sha256:9c0152da377fa28a91afc4b7363aba11ac4f28032110daa71f8b24f79fff4593",
-      "codeFiles": 58,
+      "codeDigest": "sha256:5428905a2b9001767a175a0979802ddc6110f9f99d98b5a3355adad9ac126bcb",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/front-1",
         "files": 23,
-        "digest": "sha256:84b0d1cd593f8735c3614970f0a98d64416e08d0a3971403cebdef505a5bcfa1"
+        "digest": "sha256:9c31be441d200e51f495faafbe35e0d9d0cd92d671125f2462bb8ca0a74bf040"
       }
     },
     {
@@ -35,15 +35,15 @@
       "track": "front",
       "order": 2,
       "branch": "front-2",
-      "tag": "front-2-v2.3.1",
-      "commit": "c28dca1a5c32915423ca69d059e79129cf0e5ba6",
+      "tag": "front-2-v2.4.0",
+      "commit": "a348c213111a220d2774b75f651c50b2387a4cdd",
       "commitMessage": "SupportDesk release front-2",
-      "codeDigest": "sha256:53d29f139fa605f34dcf56302fe328249adcdcca566cad31fe5a332ffe8a61d8",
-      "codeFiles": 58,
+      "codeDigest": "sha256:e40a23b934d6ddcdf4a9f89d334375882586f3865be6cf5d9a2068f8283bd773",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/front-2",
         "files": 23,
-        "digest": "sha256:c93b66b174e8d3c5e02728bab83f8d6f0ff477646e296ae0e4bd528e4380a867"
+        "digest": "sha256:cf43e26ca9241fbcaac6f56f7f421fedafefdcf33df0e4d66d1b44618762db6a"
       }
     },
     {
@@ -51,11 +51,11 @@
       "track": "front",
       "order": 3,
       "branch": "front-3",
-      "tag": "front-3-v2.3.1",
-      "commit": "8e76afea28271bdb6316dae9eadfebaf25c8c6c1",
+      "tag": "front-3-v2.4.0",
+      "commit": "4ca87a76d396815ebfdf0197676c806cb2bd78ff",
       "commitMessage": "SupportDesk release front-3",
-      "codeDigest": "sha256:198ef3461a00f19eaab56c279a20172f96df5d2ab72b04c626512da77b7320eb",
-      "codeFiles": 58,
+      "codeDigest": "sha256:efa4628229ac2bd88f14f58027d575d75a9173a6044956fc2ce5ddf95d9aff72",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/front-3",
         "files": 23,
@@ -67,15 +67,15 @@
       "track": "front",
       "order": 4,
       "branch": "front-4",
-      "tag": "front-4-v2.3.1",
-      "commit": "84de015fb6ee8b54b13f44d810c62e0f7d2f05af",
+      "tag": "front-4-v2.4.0",
+      "commit": "781ceb152f04bbfd46b6785940b254ab3b995749",
       "commitMessage": "SupportDesk release front-4",
-      "codeDigest": "sha256:3089b32ce08a2625a2e8fdccc6b67bc56eb1636ff28fe984e9d9a1f8402c12ec",
-      "codeFiles": 58,
+      "codeDigest": "sha256:396cddf1199ce729675cde470590cb65fd7a7f9f1cac2973bbfdd3243ef87761",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/front-4",
         "files": 23,
-        "digest": "sha256:d16bf1b322d5c7af550c704d1e1619aed0eeb40f4b797eaf81c3fb60c94b2eeb"
+        "digest": "sha256:f3eae935710ac7cff1bde48ea43b2fef524c0975dc3e0c2c21d2e738f67086c4"
       }
     },
     {
@@ -83,11 +83,11 @@
       "track": "back",
       "order": 1,
       "branch": "back-1",
-      "tag": "back-1-v2.3.1",
-      "commit": "483a70ad52e38b3da44582649d1eb781f9422cf4",
+      "tag": "back-1-v2.4.0",
+      "commit": "a3a1247a1b4ec74e17d01c5abcaba4ffc7706630",
       "commitMessage": "SupportDesk release back-1",
-      "codeDigest": "sha256:f50aed2e7f47f170648fedfb09ea10f12fd9c13204b21ec31fbc94eb3282c247",
-      "codeFiles": 58,
+      "codeDigest": "sha256:7dd60a29344f8475271886a071981aac20a21f4d3242da4e772e2d06ff893c07",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/back-1",
         "files": 23,
@@ -99,11 +99,11 @@
       "track": "back",
       "order": 2,
       "branch": "back-2",
-      "tag": "back-2-v2.3.1",
-      "commit": "69a4ba4276bd3425a57c4dc9a4a2fc457fb17731",
+      "tag": "back-2-v2.4.0",
+      "commit": "89f882f3803da22f3a594236ad233ff96f7dd602",
       "commitMessage": "SupportDesk release back-2",
-      "codeDigest": "sha256:ddede059d18c076533dd633608c948c35c5a5a57359956214c0475318f31a015",
-      "codeFiles": 58,
+      "codeDigest": "sha256:64a0ff1d9cd6346250497793e4733972f2d137ded9c2de5da7a35bb64b812128",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/back-2",
         "files": 23,
@@ -115,11 +115,11 @@
       "track": "back",
       "order": 3,
       "branch": "back-3",
-      "tag": "back-3-v2.3.1",
-      "commit": "a2f4c1808a975e45803f448f4af52a82cd44711b",
+      "tag": "back-3-v2.4.0",
+      "commit": "1ead1efb2def2eab8022d4656ff7e7e112b95cff",
       "commitMessage": "SupportDesk release back-3",
-      "codeDigest": "sha256:ae4d666b0ebaf124a986095564de783078c009993b14aaf98fbe4a81eaefbd91",
-      "codeFiles": 58,
+      "codeDigest": "sha256:c803363c756f04bd893f1b793ee7845b297ce9df19e609411226774ef21a55e4",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/back-3",
         "files": 23,
@@ -131,11 +131,11 @@
       "track": "back",
       "order": 4,
       "branch": "back-4",
-      "tag": "back-4-v2.3.1",
-      "commit": "c6e383571df7a0e295bd4c710f995bc3ce4bf76b",
+      "tag": "back-4-v2.4.0",
+      "commit": "070682577d5500f88e8d0a7025bb3b54cbb3ed5f",
       "commitMessage": "SupportDesk release back-4",
-      "codeDigest": "sha256:37bd0b8dd42f8539c9aa39070e55c384a811d49a55c2d8a552e81c93e2a0dc1e",
-      "codeFiles": 58,
+      "codeDigest": "sha256:4300ff5ccfb8bab3c27a31dbc78aafbe8bf0c9d99553f58e2c3a5d42a3895e8a",
+      "codeFiles": 59,
       "package": {
         "path": "tickets/back-4",
         "files": 23,
