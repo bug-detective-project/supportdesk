@@ -16,6 +16,18 @@ import type { Ticket, TicketFormValues, TicketPriority, TicketStatus } from '../
 import { AssigneeName } from '../components/AssigneeName.tsx';
 import { withSearch } from '../searchParams.ts';
 
+const STATUS_ICONS: Record<TicketStatus, string> = {
+  'Closed': '●',
+  'In Progress': '●',
+  'Open': '●',
+};
+
+const PRIORITY_ICONS: Record<TicketPriority, string> = {
+  High: '●',
+  Low: '●',
+  Medium: '●',
+};
+
 interface Feedback {
   type: 'success' | 'error';
   message: string;
@@ -47,7 +59,9 @@ export function TicketDetails() {
       .catch((error: unknown) => {
         if (!ignore) {
           setTicket(null);
-          setLoadError(error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.');
+          setLoadError(
+            error instanceof TicketNotFoundError ? 'Ticket not found.' : 'Failed to load the ticket.',
+          );
         }
       });
 
@@ -142,17 +156,48 @@ export function TicketDetails() {
 
   const backLink = (
     <Link className="back-link" to={withSearch('/tickets', search)} data-testid="back-link">
-      ← Back to list
+      <span className="back-arrow" aria-hidden="true">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      </span>
+      <span>Back to list</span>
     </Link>
   );
 
   if (loadError) {
     return (
       <main className="page">
-        {backLink}
-        <p className="feedback feedback-error" role="alert">
-          {loadError}
-        </p>
+        <nav className="details-nav">{backLink}</nav>
+        <div className="card state-card error-state">
+          <div className="state-icon" aria-hidden="true">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+          </div>
+          <p className="feedback feedback-error" role="alert">
+            {loadError}
+          </p>
+        </div>
       </main>
     );
   }
@@ -160,8 +205,11 @@ export function TicketDetails() {
   if (!ticket) {
     return (
       <main className="page">
-        {backLink}
-        <p className="loading">Loading ticket…</p>
+        <nav className="details-nav">{backLink}</nav>
+        <div className="card state-card loading-state">
+          <div className="spinner" aria-hidden="true" />
+          <p className="loading">Loading ticket…</p>
+        </div>
       </main>
     );
   }
@@ -171,108 +219,237 @@ export function TicketDetails() {
       <nav className="details-nav">
         {backLink}
         <div className="pager">
-          <button
-            type="button"
-            onClick={() => goTo(previousId)}
-            disabled={previousId === undefined}
-            data-testid="prev-button"
-          >
-            ← Previous
-          </button>
-          <button
-            type="button"
-            onClick={() => goTo(nextId)}
-            disabled={nextId === undefined}
-            data-testid="next-button"
-          >
-            Next →
-          </button>
+          {position >= 0 && (
+            <span className="pager-status" aria-live="polite">
+              {position + 1} of {resultIds.length}
+            </span>
+          )}
+          <div className="pager-buttons">
+            <button
+              type="button"
+              className="btn-pager"
+              onClick={() => goTo(previousId)}
+              disabled={previousId === undefined}
+              data-testid="prev-button"
+              aria-label="Previous ticket"
+            >
+              ← Previous
+            </button>
+            <button
+              type="button"
+              className="btn-pager"
+              onClick={() => goTo(nextId)}
+              disabled={nextId === undefined}
+              data-testid="next-button"
+              aria-label="Next ticket"
+            >
+              Next →
+            </button>
+          </div>
         </div>
       </nav>
 
-      <article className="ticket-details" data-testid="ticket-details">
-        <header>
-          <p className="ticket-number">
-            Ticket #<span data-testid="ticket-id">{ticket.id}</span>
-          </p>
-          <h1 data-testid="ticket-title">{ticket.title}</h1>
-        </header>
-
-        <p className="description" data-testid="ticket-description">
-          {ticket.description}
-        </p>
-
-        <dl className="fields">
-          <div className="field">
-            <dt>
-              <label htmlFor="status">Status</label>
-            </dt>
-            <dd>
-              <select id="status" value={ticket.status} onChange={handleStatusChange} data-testid="status-select">
-                {TICKET_STATUSES.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
-            </dd>
-          </div>
-
-          <div className="field">
-            <dt>
-              <label htmlFor="priority">Priority</label>
-            </dt>
-            <dd>
-              <select
-                id="priority"
-                value={ticket.priority}
-                onChange={handlePriorityChange}
-                data-testid="priority-select"
-              >
-                {TICKET_PRIORITIES.map((priority) => (
-                  <option key={priority} value={priority}>
-                    {priority}
-                  </option>
-                ))}
-              </select>
-            </dd>
-          </div>
-
-          <div className="field">
-            <dt>
-              <label htmlFor="assignee">Assignee</label>
-            </dt>
-            <dd>
-              <span className="assignee-name" data-testid="assignee-name">
-                <AssigneeName assignee={ticket.assignee} />
-              </span>
-              <select
-                id="assignee"
-                value={ticket.assigneeId ?? ''}
-                onChange={handleAssigneeChange}
-                data-testid="assignee-select"
-              >
-                <option value="">Unassigned</option>
-                {activeEmployees.map((employee) => (
-                  <option key={employee.id} value={employee.id}>
-                    {employee.name}
-                  </option>
-                ))}
-              </select>
-            </dd>
-          </div>
-        </dl>
-
-        {feedback?.type === 'success' && (
+      {feedback?.type === 'success' && (
+        <div className="feedback-banner">
           <p className="feedback feedback-success" role="status" data-testid="feedback-success">
-            {feedback.message}
+            <svg
+              className="feedback-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <span>{feedback.message}</span>
           </p>
-        )}
-        {feedback?.type === 'error' && (
+        </div>
+      )}
+
+      {feedback?.type === 'error' && (
+        <div className="feedback-banner">
           <p className="feedback feedback-error" role="alert" data-testid="feedback-error">
-            {feedback.message}
+            <svg
+              className="feedback-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>{feedback.message}</span>
           </p>
-        )}
+        </div>
+      )}
+
+      <article className="ticket-details" data-testid="ticket-details">
+        <div className="ticket-layout">
+          <div className="ticket-main-panel">
+            <header className="ticket-header">
+              <div className="ticket-header-top">
+                <p className="ticket-number">
+                  Ticket #<span data-testid="ticket-id">{ticket.id}</span>
+                </p>
+                <div className="ticket-header-tags">
+                  <span className={`badge status-${ticket.status.replace(' ', '-').toLowerCase()}`}>
+                    <span className="badge-indicator-dot" aria-hidden="true" />
+                    {ticket.status}
+                  </span>
+                  <span className={`badge priority-${ticket.priority.toLowerCase()}`}>
+                    <span className="badge-indicator-dot" aria-hidden="true" />
+                    {ticket.priority}
+                  </span>
+                </div>
+              </div>
+              <h1 data-testid="ticket-title">{ticket.title}</h1>
+            </header>
+
+            <section className="ticket-description-box">
+              <h2 className="section-label">Description</h2>
+              <p className="description" data-testid="ticket-description">
+                {ticket.description}
+              </p>
+            </section>
+          </div>
+
+          <aside className="ticket-sidebar-panel">
+            <div className="sidebar-card">
+              <h2 className="sidebar-heading">Ticket Properties</h2>
+              <dl className="fields">
+                <div className="field">
+                  <dt>
+                    <label htmlFor="status">Status</label>
+                  </dt>
+                  <dd>
+                    <div className="select-container">
+                      <select
+                        id="status"
+                        className={`badge-select status-${ticket.status.replace(' ', '-').toLowerCase()}`}
+                        value={ticket.status}
+                        onChange={handleStatusChange}
+                        data-testid="status-select"
+                      >
+                        {TICKET_STATUSES.map((status) => (
+                          <option
+                            key={status}
+                            value={status}
+                            className={`opt-status opt-status-${status.replace(' ', '-').toLowerCase()}`}
+                          >
+                            {STATUS_ICONS[status]} {status}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </span>
+                    </div>
+                  </dd>
+                </div>
+
+                <div className="field">
+                  <dt>
+                    <label htmlFor="priority">Priority</label>
+                  </dt>
+                  <dd>
+                    <div className="select-container">
+                      <select
+                        id="priority"
+                        className={`badge-select priority-${ticket.priority.toLowerCase()}`}
+                        value={ticket.priority}
+                        onChange={handlePriorityChange}
+                        data-testid="priority-select"
+                      >
+                        {TICKET_PRIORITIES.map((priority) => (
+                          <option
+                            key={priority}
+                            value={priority}
+                            className={`opt-priority opt-priority-${priority.toLowerCase()}`}
+                          >
+                            {PRIORITY_ICONS[priority]} {priority}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </span>
+                    </div>
+                  </dd>
+                </div>
+
+                <div className="field">
+                  <dt>
+                    <label htmlFor="assignee">Assignee</label>
+                  </dt>
+                  <dd>
+                    <span className="sr-only" data-testid="assignee-name">
+                      <AssigneeName assignee={ticket.assignee} />
+                    </span>
+                    <div className="select-container">
+                      <select
+                        id="assignee"
+                        value={ticket.assigneeId ?? ''}
+                        onChange={handleAssigneeChange}
+                        data-testid="assignee-select"
+                        aria-label="Assign to team member"
+                      >
+                        <option value="">Unassigned</option>
+                        {activeEmployees.map((employee) => (
+                          <option key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </span>
+                    </div>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </aside>
+        </div>
       </article>
     </main>
   );
