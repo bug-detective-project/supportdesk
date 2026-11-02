@@ -3,10 +3,11 @@
   "formatVersion": 1,
   "project": {
     "id": "supportdesk",
-    "name": "SupportDesk"
+    "name": "SupportDesk",
+    "difficulty": "beginner"
   },
-  "version": "2.2.0",
-  "createdAt": "2026-11-01T22:11:54.222Z",
+  "version": "2.3.0",
+  "createdAt": "2026-11-02T01:02:22.579Z",
   "tickets": {
     "total": 8,
     "front": 4,
