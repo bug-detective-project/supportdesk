@@ -17,6 +17,8 @@ export interface Messages {
     timeout: (seconds: number) => string;
     passed: string;
   };
+  /** A dependency of the workspace that does not come from the npm registry: the install refuses it. */
+  forbiddenDependency: (name: string, resolved: string) => string;
   failingTests: string;
   unfinishedTests: string;
   testCounts: (passed: number, failed: number) => string;
@@ -47,6 +49,8 @@ export const messages: Record<Language, Messages> = {
         `Timeout: QA exceeded the time limit of ${seconds} seconds, possibly because of a hang or infinite loop.`,
       passed: 'Passed: ready for code review.',
     },
+    forbiddenDependency: (name, resolved) =>
+      `The dependency ${name} comes from ${resolved}, not from the npm registry. Only packages from https://registry.npmjs.org/ can be installed.`,
     failingTests: 'Failing tests:',
     unfinishedTests: 'Unfinished tests:',
     testCounts: (passed, failed) => `${passed} passed, ${failed} failed`,
@@ -76,6 +80,8 @@ export const messages: Record<Language, Messages> = {
         `Timeout: o QA excedeu o limite de ${seconds} segundos, possivelmente por causa de um travamento ou loop infinito.`,
       passed: 'Aprovado: pronto para code review.',
     },
+    forbiddenDependency: (name, resolved) =>
+      `A dependência ${name} vem de ${resolved}, não do registro do npm. Só pacotes de https://registry.npmjs.org/ podem ser instalados.`,
     failingTests: 'Testes com falha:',
     unfinishedTests: 'Testes não concluídos:',
     testCounts: (passed, failed) => `${passed} passaram, ${failed} falharam`,

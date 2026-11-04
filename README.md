@@ -11,7 +11,8 @@ git -C supportdesk worktree add ../supportdesk-qa qa
 
 ```
 supportdesk-qa/
-  package.json           bugDetective.project: { id, name } of the project
+  package.json           bugDetective.project: { id, name, difficulty, stack } of the project
+  .npmrc                 the catalog's dependency rules for this package (no URL dependencies, versions at least 7 days old)
   manifest.json          the published manifest (generated, never edited by hand)
   review.json            the code review configuration (paths left out of the review), optional
   story.en.json, story.pt.json   the project's story: client, project and Rafaela's messages
@@ -22,7 +23,8 @@ supportdesk-qa/
   messages.ts            report messages (en, pt)
   playwright.config.ts   Gate 2 config (Chromium, headless, 1 worker)
   support/               Gate 2 helpers and the progress reporters
-  .github/workflows/publication.yml   the pull request checks and the qa-v<version> tag (the catalog's project.yml)
+  .github/workflows/publication.yml   the pull request checks and the qa-v<version> tag (the catalog's project.yml,
+                         pinned by commit hash to the version package.json depends on; bd validate checks it)
   tickets/<id>/          one folder per ticket, named <track>-<order>: front-1, front-2, ..., back-1, ...
     ticket.en.md, ticket.pt.md   the ticket as a Jira card (its Track row says Front-end or Back-end); copied to the branch root as TICKET.en.md / TICKET.pt.md
     bug.patch            main -> the ticket branch (the bug only)
@@ -53,7 +55,7 @@ npm run qa -- --ticket <n> --package tickets/<id> --workspace <path> [--lang en|
 
 `--ticket` is the ticket's position in the queue (it only labels the result) and `--package` is the ticket folder.
 
-1. **Isolate:** copies the workspace to a temp directory (without `node_modules`, `.git`, `dist`, `qa/` and `*.db` files) and runs `npm ci` there. The player's files, database and processes are never touched.
+1. **Isolate:** copies the workspace to a temp directory (without `node_modules`, `.git`, `dist`, `qa/` and `*.db` files) and runs `npm ci --ignore-scripts` there, then `npm rebuild` only for the packages that the workspace's `package.json` lists in `allowScripts` (`better-sqlite3`): no dependency runs a script the project did not allow. A lockfile that resolves a package outside `https://registry.npmjs.org/` is refused before anything is installed. The player's files, database and processes are never touched.
 2. **Gate 1 (regression):** deletes every `*.test.*` / `*.spec.*` file in the copy, copies in the package's `gate1/`, and runs Vitest.
 3. **Gate 2 (ticket validation):** builds the client with `vite build`, creates a fresh database with `npm run db:reset`, starts the server and `vite preview` on free ports, and runs the package's `gate2/` with Playwright. All processes are stopped afterward, even on failure.
 4. **Timeout:** the whole run is limited to `--timeout` seconds (default 180). On timeout, everything is killed and unfinished tests are listed.

@@ -9,8 +9,8 @@
       "name": "SupportDesk",
       "difficulty": "beginner",
       "stack": {
-        "frontend": "React · Vite",
-        "backend": "Node.js · Express",
+        "frontend": "React \u00b7 Vite",
+        "backend": "Node.js \u00b7 Express",
         "database": "SQLite"
       }
     }
@@ -21,10 +21,11 @@
   "scripts": {
     "qa": "node run.ts",
     "typecheck": "tsc --noEmit",
-    "postinstall": "playwright install chromium"
+    "postinstall": "playwright install chromium",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.1.0",
+    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.2.0",
     "@playwright/test": "1.64.1",
     "@types/node": "26.6.5",
     "typescript": "7.0.2",
