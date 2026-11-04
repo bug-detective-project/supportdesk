@@ -25,7 +25,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.2.0",
+    "@bug-detective/catalog": "github:bug-detective-project/catalog#v1.2.1",
     "@playwright/test": "1.64.1",
     "@types/node": "26.6.5",
     "typescript": "7.0.2",
