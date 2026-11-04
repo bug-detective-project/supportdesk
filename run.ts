@@ -18,6 +18,8 @@ import { tmpdir } from 'node:os';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { messages } from './messages.ts';
+import { allowedScriptPackages, forbiddenDependency } from './support/dependencies.ts';
+import type { Lockfile } from './support/dependencies.ts';
 import type { Language, Messages } from './messages.ts';
 import type { TestRecord } from './support/progress.ts';
 
@@ -449,18 +451,36 @@ async function saveDependencies(context: Context): Promise<void> {
   }
 }
 
+/**
+ * Installs the workspace's dependencies without running any install script, then rebuilds only the
+ * packages that package.json's `allowScripts` names: a dependency never runs code the project did
+ * not allow. Refuses a lockfile that resolves a package outside the npm registry.
+ */
 async function installDependencies(context: Context): Promise<void> {
   const { app, text } = context;
   await step(context, text.steps.install, async () => {
     if (await restoreDependencies(context)) {
       return;
     }
-    const args = existsSync(join(app, 'package-lock.json'))
-      ? ['ci', '--prefer-offline', '--no-audit', '--no-fund']
-      : ['install', '--prefer-offline', '--no-audit', '--no-fund'];
+    const hasLockfile = existsSync(join(app, 'package-lock.json'));
+    if (hasLockfile) {
+      const forbidden = forbiddenDependency(JSON.parse(await readFile(join(app, 'package-lock.json'), 'utf8')) as Lockfile);
+      if (forbidden) {
+        throw new StepError({ name: text.steps.install, status: 'failed', error: text.forbiddenDependency(...forbidden) });
+      }
+    }
+    const args = [hasLockfile ? 'ci' : 'install', '--ignore-scripts', '--prefer-offline', '--no-audit', '--no-fund'];
     const { code, output } = await exec('npm', args, processOptions(context, app, 'install'));
     if (code !== 0) {
       throw new StepError({ name: text.steps.install, status: 'failed', error: tail(output) });
+    }
+    const packageJson = JSON.parse(await readFile(join(app, 'package.json'), 'utf8')) as { allowScripts?: Record<string, unknown> };
+    const rebuild = allowedScriptPackages(packageJson);
+    if (rebuild.length > 0) {
+      const rebuilt = await exec('npm', ['rebuild', ...rebuild], processOptions(context, app, 'install'));
+      if (rebuilt.code !== 0) {
+        throw new StepError({ name: text.steps.install, status: 'failed', error: tail(rebuilt.output) });
+      }
     }
     await saveDependencies(context);
   });
