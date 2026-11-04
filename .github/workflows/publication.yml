@@ -12,6 +12,6 @@ jobs:
   project:
     # Pinned by commit hash; the version comment must equal the @bug-detective/catalog dependency of
     # package.json (bd validate checks it).
-    uses: bug-detective-project/catalog/.github/workflows/project.yml@190a406f36624dd65dfcfad88cb7a7e67677fda0 # v1.2.0
+    uses: bug-detective-project/catalog/.github/workflows/project.yml@d33b7fe4e518c9f43b26457f327cc0ea038cde3a # v1.2.1
     permissions:
       contents: write
