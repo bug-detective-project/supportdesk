@@ -1,0 +1,29 @@
+name: ci
+
+# The CI of main (the app with every bug fixed): the catalog's reusable workflow runs npm ci, lint,
+# format:check and the tests. bd build keeps .github/ out of the ticket branches, so players never
+# get this file. npm audit is informative: it never blocks a merge (the dependency rules live in
+# .npmrc and in bd validate).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  app:
+    uses: bug-detective-project/catalog/.github/workflows/app.yml@190a406f36624dd65dfcfad88cb7a7e67677fda0 # v1.2.0
+  audit:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.12.1
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=high

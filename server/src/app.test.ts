@@ -17,6 +17,21 @@ afterEach(() => {
   db.close();
 });
 
+describe('Host header', () => {
+  it.each(['localhost:3001', '127.0.0.1:3001', '[::1]:3001', 'localhost', 'LOCALHOST:3001'])('answers %s', async (host) => {
+    const response = await request(app).get('/api/tickets').set('Host', host);
+
+    expect(response.status).toBe(200);
+  });
+
+  it.each(['example.invalid', 'example.invalid:3001', 'localhost.evil.test', '10.0.0.5:3001', ''])('refuses %j with 403', async (host) => {
+    const response = await request(app).get('/api/tickets').set('Host', host);
+
+    expect(response.status).toBe(403);
+    expect(response.body).toEqual({ error: 'Forbidden host' });
+  });
+});
+
 describe('GET /api/tickets', () => {
   it('includes the assignee in each ticket', async () => {
     const response = await request(app).get('/api/tickets');

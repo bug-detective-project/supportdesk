@@ -1,0 +1,8 @@
+# Keeps the hash-pinned workflow reference current. No npm ecosystem: dependencies are updated by
+# hand, after the release-age rule of .npmrc.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

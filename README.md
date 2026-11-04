@@ -20,6 +20,14 @@ npm run dev
 
 Open http://localhost:5173. The client proxies `/api` to the server.
 
+The API answers only requests whose `Host` is `localhost`, `127.0.0.1` or `[::1]` (any port) and
+gives 403 to anything else: the app runs on the player's computer, and a page on the internet
+must not reach it through the browser.
+
+`.npmrc` applies the catalog's dependency rules to every install: packages only from the npm
+registry (`allow-git=none`, `allow-remote=none`) and versions at least 7 days old
+(`min-release-age=7`). `bd validate` checks the same rules on every publication.
+
 ## Scripts
 
 Run from the repository root:
@@ -61,6 +69,14 @@ The database is created and seeded automatically the first time the server start
 | GET    | `/api/employees`       | All employees, including `active`.                                                        |
 
 Tickets include their `assignee` (`{ id, name, email, active }`, or `null` when unassigned).
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push and pull request into `main`: the catalog's reusable
+`app.yml` (`npm ci`, `lint`, `format:check`, `test`), pinned by commit hash and kept current by
+Dependabot, plus an informative `npm audit` that never blocks a merge. `main` changes only through
+a pull request with the `app` check green and the approval of a code owner (`.github/CODEOWNERS`).
+`bd build` keeps `.github/` out of the ticket branches, so players never get the workflow.
 
 ## Team conventions
 
