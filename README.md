@@ -95,3 +95,14 @@ Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, 
 - Black-box only: `data-testid` selectors and API requests. No source code, CSS or DOM structure, and no visible text as a selector (except asserting the literal "Unassigned").
 - Every run uses a fresh seed. Tests read expected values from the API instead of hard-coding them.
 - Each test checks observable behavior, so any valid fix passes.
+
+## License
+
+Copyright (c) 2026 pleaobraga. This branch holds two kinds of material:
+
+| Material                                                                                                        | License                                              |
+| --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Code: the QA CLI and its configuration, and each ticket's `bug.patch`, `reference.patch`, `gate1/` and `gate2/` | PolyForm Noncommercial 1.0.0: see [LICENSE](LICENSE) |
+| Texts: `story.*.json`, and each ticket's `ticket.*.md`, `hints.*.json`, `review.*.md` and `solution.*.md`       | CC BY-NC 4.0: see [LICENSE-CONTENT](LICENSE-CONTENT) |
+
+The texts are credited to pleaobraga (https://github.com/pleaobraga).
