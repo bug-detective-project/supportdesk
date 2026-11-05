@@ -94,3 +94,9 @@ Stable `data-testid` attributes:
 | Ticket details controls   | `status-select`, `priority-select`, `assignee-select`, `assignee-name` |
 | Ticket details navigation | `prev-button`, `next-button`, `back-link`                              |
 | Feedback messages         | `feedback-success`, `feedback-error`                                   |
+
+## License
+
+Copyright (c) 2026 pleaobraga. The code of this repository (`main` and the ticket branches) is licensed under the PolyForm Noncommercial License 1.0.0: see [LICENSE](LICENSE).
+
+The `TICKET.en.md` and `TICKET.pt.md` texts of the ticket branches are licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), credited to pleaobraga (https://github.com/pleaobraga).
