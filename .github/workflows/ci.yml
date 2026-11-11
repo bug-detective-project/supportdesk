@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   app:
-    uses: bug-detective-project/catalog/.github/workflows/app.yml@190a406f36624dd65dfcfad88cb7a7e67677fda0 # v1.2.0
+    uses: bug-detective-project/catalog/.github/workflows/app.yml@d33b7fe4e518c9f43b26457f327cc0ea038cde3a # v1.2.1
   audit:
     runs-on: ubuntu-latest
     continue-on-error: true
