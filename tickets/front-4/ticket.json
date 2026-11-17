@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Reading errors and debugging", "Rendering and lists"],
+    "pt": ["Ler erros e depurar", "Renderização e listas"]
+  }
+}

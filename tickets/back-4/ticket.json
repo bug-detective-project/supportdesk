@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Server security", "Databases and queries"],
+    "pt": ["Segurança no servidor", "Banco de dados e consultas"]
+  }
+}

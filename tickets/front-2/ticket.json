@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Async and state", "Working with APIs"],
+    "pt": ["Assincronia e estado", "Consumo de API"]
+  }
+}

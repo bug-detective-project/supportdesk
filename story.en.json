@@ -25,7 +25,11 @@
     "skills": [
       "Async and state",
       "Tracing data flow",
-      "Reading errors and debugging"
+      "Reading errors and debugging",
+      "Databases and queries",
+      "Input validation",
+      "Search, filters and pagination",
+      "Server security"
     ]
   },
   "messages": {
