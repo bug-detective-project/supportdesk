@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Async and state", "Effects and lifecycle"],
+    "pt": ["Assincronia e estado", "Efeitos e ciclo de vida"]
+  }
+}

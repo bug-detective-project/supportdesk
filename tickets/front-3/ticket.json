@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Tracing data flow", "Contracts and types between front and back"],
+    "pt": ["Rastrear o fluxo de dados", "Contratos e tipos entre front e back"]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": ["Search, filters and pagination", "Databases and queries"],
+    "pt": ["Busca, filtros e paginação", "Banco de dados e consultas"]
+  }
+}

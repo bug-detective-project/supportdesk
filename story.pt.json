@@ -25,7 +25,11 @@
     "skills": [
       "Assincronia e estado",
       "Rastrear o fluxo de dados",
-      "Ler erros e depurar"
+      "Ler erros e depurar",
+      "Banco de dados e consultas",
+      "Validação de entrada",
+      "Busca, filtros e paginação",
+      "Segurança no servidor"
     ]
   },
   "messages": {
