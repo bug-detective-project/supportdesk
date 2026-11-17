@@ -11,8 +11,8 @@
       "database": "SQLite"
     }
   },
-  "version": "2.6.1",
-  "createdAt": "2026-11-05T13:52:06.505Z",
+  "version": "2.7.0",
+  "createdAt": "2026-11-17T18:23:03.749Z",
   "tickets": {
     "total": 8,
     "front": 4,
@@ -31,8 +31,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/front-1",
-        "files": 23,
-        "digest": "sha256:4075b2f4242802260552f018109e7fc3dbe999af4f813f271b25eca8310538f1"
+        "files": 24,
+        "digest": "sha256:faa42b664ccefe21f39f8c1039ba0a9b6286902a7eca5e98eb6dd2079fbee707"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Async and state",
+          "Effects and lifecycle"
+        ],
+        "pt": [
+          "Assincronia e estado",
+          "Efeitos e ciclo de vida"
+        ]
       }
     },
     {
@@ -47,8 +58,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/front-2",
-        "files": 23,
-        "digest": "sha256:0adcaf9cccd7ff9384bdd248e8f42b377f0f47892efe281c221353bd767676a0"
+        "files": 24,
+        "digest": "sha256:d596bb230198918a7589adda08608a94ab20daa025febef628b4add31303b894"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Async and state",
+          "Working with APIs"
+        ],
+        "pt": [
+          "Assincronia e estado",
+          "Consumo de API"
+        ]
       }
     },
     {
@@ -63,8 +85,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/front-3",
-        "files": 23,
-        "digest": "sha256:9bdc313c3b33956a5f8f3046a7c572db32d1290b09ea96202b2ccedb60be0586"
+        "files": 24,
+        "digest": "sha256:f216689edf629d62429dc74fee5812fad4f440e2a5d870a44e0892d28cda4260"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Tracing data flow",
+          "Contracts and types between front and back"
+        ],
+        "pt": [
+          "Rastrear o fluxo de dados",
+          "Contratos e tipos entre front e back"
+        ]
       }
     },
     {
@@ -79,8 +112,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/front-4",
-        "files": 23,
-        "digest": "sha256:f2ff85e86289af17037e5b9e21c0657dd79998391007f6d75de161bea66b5663"
+        "files": 24,
+        "digest": "sha256:72af8e4538bac41d9e39ffee8f4a294f5a061f3a83080039d6533db6d89dd5d2"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Reading errors and debugging",
+          "Rendering and lists"
+        ],
+        "pt": [
+          "Ler erros e depurar",
+          "Renderização e listas"
+        ]
       }
     },
     {
@@ -95,8 +139,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/back-1",
-        "files": 23,
-        "digest": "sha256:04370a8bc0754c8c6588e7d47810cccd3d6001fca35c8a1649eeaef029f8660c"
+        "files": 24,
+        "digest": "sha256:dbe372fd5bbd04cbb2abc5cf441fa5e7f806cebba0e58e9261a9916d6e869e73"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Search, filters and pagination",
+          "Databases and queries"
+        ],
+        "pt": [
+          "Busca, filtros e paginação",
+          "Banco de dados e consultas"
+        ]
       }
     },
     {
@@ -111,8 +166,17 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/back-2",
-        "files": 23,
-        "digest": "sha256:98f3e3eed2f0a8ef7706e2c88745caa076bbcb9b937d3252ee97adca5aba052c"
+        "files": 24,
+        "digest": "sha256:387ff92379ffe880352b487c34ee33ba2bfbdb238b9ac24649d78cd36cce2d53"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Databases and queries"
+        ],
+        "pt": [
+          "Banco de dados e consultas"
+        ]
       }
     },
     {
@@ -127,8 +191,17 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/back-3",
-        "files": 23,
-        "digest": "sha256:a04f30cc040b9a4725ea14a141abaaaaeefc8870f18993b7fd153fcd56dd9ff4"
+        "files": 24,
+        "digest": "sha256:222cd0caa6cc41e5356df78389979c296812ca3aee7eca6d647bb1ccd52d2773"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Input validation"
+        ],
+        "pt": [
+          "Validação de entrada"
+        ]
       }
     },
     {
@@ -143,8 +216,19 @@
       "codeFiles": 61,
       "package": {
         "path": "tickets/back-4",
-        "files": 23,
-        "digest": "sha256:63b3278861f6a76432b347b8b71a3ea81ca8063e70e57765990e53ef3d07aaa0"
+        "files": 24,
+        "digest": "sha256:dd4820c10a20217c043ba0c3fc4ee15fcc0cb552e0ebfa9a2c41fe6522e1f477"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Server security",
+          "Databases and queries"
+        ],
+        "pt": [
+          "Segurança no servidor",
+          "Banco de dados e consultas"
+        ]
       }
     }
   ]
