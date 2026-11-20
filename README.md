@@ -85,8 +85,8 @@ npx bd build       # regenerates every gate1/ and one orphan branch per tickets/
 npx bd verify      # expected: buggy (pass, fail), fixed (pass, pass)
 ```
 
-4. `npx bd publish --version <X.Y.Z>`: writes `manifest.json`, tags new ticket commits (`<id>-v<X.Y.Z>`), commits, pushes the ticket branches, the tags and your branch, and prints the pull request link. It never pushes `qa`.
-5. Open the pull request into `qa`. Its checks run `bd validate` and `bd verify`; the merge reaches players the next time they take a ticket and is tagged `qa-v<X.Y.Z>`.
+4. `npx bd publish --version <X.Y.Z>`: writes and commits `manifest.json`, pushes the ticket branches and your branch, and prints the pull request link. It creates no tags and never pushes `qa`; run again after a failed push, it only redoes the pushes, and `--abort` undoes a publication that was not pushed.
+5. Open the pull request into `qa`. Its checks run `bd validate` and `bd verify`; the merge reaches players the next time they take a ticket, and the workflow tags it `qa-v<X.Y.Z>` and each new ticket commit `<id>-v<X.Y.Z>`.
 
 Each ticket branch is `main` + its `bug.patch` + its Jira card (`TICKET.en.md`, `TICKET.pt.md`). Its project tests are exactly `gate1/`, which `bd build` writes: the test files of `main` plus the regression test of every **other** ticket (the new test file its `reference.patch` adds). Commit the regenerated `gate1/` folders. A bug must therefore not break any test of `main`: move such a test into the ticket's regression test instead.
 
